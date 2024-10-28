@@ -9,7 +9,7 @@ namespace KupujemProdajemWebApp.Models
         public int Id { get; set; }
         public string Name { get; set; }
         [ForeignKey("AdvertisementCategory")]
-        public int AdvertisementGroupId { get; set; }
+        public int AdvertisementCategoryId { get; set; }
         public AdvertisementCategory Category { get; set; }
     }
 }
