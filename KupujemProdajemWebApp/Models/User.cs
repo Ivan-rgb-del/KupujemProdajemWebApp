@@ -8,5 +8,6 @@
         public string City { get; set; }
         public string Addrress { get; set; }
         public int PhoneNumber { get; set; }
+        public ICollection<Advertisement> Advertisements { get; set; }
     }
 }
