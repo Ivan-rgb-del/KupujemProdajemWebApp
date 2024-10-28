@@ -20,6 +20,8 @@ namespace KupujemProdajemWebApp.Models
         public bool IsActive { get; set; }
         public AdvertisementCondition Condition { get; set; }
         public DeliveryType DeliveryType { get; set; }
+        public AdvertisementCategory Category { get; set; }
+        public AdvertisementGroup Group { get; set; }
         public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
         [ForeignKey("User")]
         public int UserId { get; set; }

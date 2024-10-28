@@ -7,5 +7,6 @@ namespace KupujemProdajemWebApp.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        public ICollection<AdvertisementGroup> AdvertisementGroups { get; set; } = new List<AdvertisementGroup>();
     }
 }
