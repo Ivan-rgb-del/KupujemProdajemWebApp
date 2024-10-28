@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using KupujemProdajemWebApp.Data.Enum;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KupujemProdajemWebApp.Models
 {
@@ -14,7 +16,11 @@ namespace KupujemProdajemWebApp.Models
         public string ImageURL { get; set; }
         public int Likes { get; set; }
         public int Viewers { get; set; }
-        public DateOnly CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
         public bool IsActive { get; set; }
+        public AdvertisementCondition Condition { get; set; }
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }
