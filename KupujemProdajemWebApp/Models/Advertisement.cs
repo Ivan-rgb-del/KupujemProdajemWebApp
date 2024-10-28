@@ -19,6 +19,7 @@ namespace KupujemProdajemWebApp.Models
         public DateTime CreatedOn { get; set; }
         public bool IsActive { get; set; }
         public AdvertisementCondition Condition { get; set; }
+        public DeliveryType DeliveryType { get; set; }
         [ForeignKey("User")]
         public int UserId { get; set; }
         public User User { get; set; }
