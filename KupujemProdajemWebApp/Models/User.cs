@@ -8,6 +8,7 @@
         public string City { get; set; }
         public string Addrress { get; set; }
         public int PhoneNumber { get; set; }
-        public ICollection<Advertisement> Advertisements { get; set; }
+        public ICollection<Advertisement> Advertisements { get; set; } = new List<Advertisement>();
+        public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
     }
 }
