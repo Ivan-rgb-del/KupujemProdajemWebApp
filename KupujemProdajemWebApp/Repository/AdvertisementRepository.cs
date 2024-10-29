@@ -1,6 +1,7 @@
 ﻿using KupujemProdajemWebApp.Data;
 using KupujemProdajemWebApp.Interfaces;
 using KupujemProdajemWebApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace KupujemProdajemWebApp.Repository
 {
@@ -15,32 +16,36 @@ namespace KupujemProdajemWebApp.Repository
 
         public bool Add(Advertisement advertisement)
         {
-            throw new NotImplementedException();
+            _context.Add(advertisement);
+            return Save();
         }
 
         public bool Delete(Advertisement advertisement)
         {
-            throw new NotImplementedException();
+            _context.Remove(advertisement);
+            return Save();
         }
 
-        public Task<IEnumerable<Advertisement>> GetAll()
+        public async Task<IEnumerable<Advertisement>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _context.Advertisements.ToListAsync();
         }
 
         public Task<Advertisement> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return _context.Advertisements.FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public bool Save()
         {
-            throw new NotImplementedException();
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
         }
 
         public bool Update(Advertisement advertisement)
         {
-            throw new NotImplementedException();
+            _context.Update(advertisement);
+            return Save();
         }
     }
 }
