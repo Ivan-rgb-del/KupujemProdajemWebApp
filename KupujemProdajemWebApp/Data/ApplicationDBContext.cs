@@ -1,4 +1,5 @@
-﻿using KupujemProdajemWebApp.Models;
+﻿using KupujemProdajemWebApp.Data.Enum;
+using KupujemProdajemWebApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace KupujemProdajemWebApp.Data
@@ -14,5 +15,48 @@ namespace KupujemProdajemWebApp.Data
         public DbSet<AdvertisementCategory> AdvertisementCategories { get; set; }
         public DbSet<AdvertisementGroup> AdvertisementGroups { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Advertisement>()
+                .Property(a => a.AdvertisementCondition)
+                .HasConversion<int>();
+
+            modelBuilder.Entity<Advertisement>()
+                .Property(a => a.DeliveryType)
+                .HasConversion<int>();
+
+            modelBuilder.Entity<Advertisement>()
+                .HasOne(a => a.User)
+                .WithMany(u => u.Advertisements)
+                .HasForeignKey(a => a.UserId);
+
+            modelBuilder.Entity<Advertisement>()
+                .HasOne(a => a.AdvertisementCategory)
+                .WithMany(c => c.Advertisements)
+                .HasForeignKey(a => a.AdvertisementCategoryId);
+
+            modelBuilder.Entity<Advertisement>()
+                .HasOne(a => a.AdvertisementGroup)
+                .WithMany(g => g.Advertisements)
+                .HasForeignKey(a => a.AdvertisementGroupId);
+
+            modelBuilder.Entity<Favorite>()
+                .HasOne(f => f.User)
+                .WithMany(u => u.Favorites)
+                .HasForeignKey(f => f.UserId);
+
+            modelBuilder.Entity<Favorite>()
+                .HasOne(f => f.Advertisement)
+                .WithMany(a => a.Favorites)
+                .HasForeignKey(f => f.AdvertisementId);
+
+            modelBuilder.Entity<AdvertisementGroup>()
+                .HasOne(g => g.AdvertisementCategory)
+                .WithMany(c => c.AdvertisementGroups)
+                .HasForeignKey(g => g.AdvertisementCategoryId);
+        }
     }
 }
