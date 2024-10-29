@@ -31,32 +31,38 @@ namespace KupujemProdajemWebApp.Data
             modelBuilder.Entity<Advertisement>()
                 .HasOne(a => a.User)
                 .WithMany(u => u.Advertisements)
-                .HasForeignKey(a => a.UserId);
+                .HasForeignKey(a => a.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Advertisement>()
                 .HasOne(a => a.AdvertisementCategory)
                 .WithMany(c => c.Advertisements)
-                .HasForeignKey(a => a.AdvertisementCategoryId);
+                .HasForeignKey(a => a.AdvertisementCategoryId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Advertisement>()
                 .HasOne(a => a.AdvertisementGroup)
                 .WithMany(g => g.Advertisements)
-                .HasForeignKey(a => a.AdvertisementGroupId);
+                .HasForeignKey(a => a.AdvertisementGroupId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Favorite>()
                 .HasOne(f => f.User)
                 .WithMany(u => u.Favorites)
-                .HasForeignKey(f => f.UserId);
+                .HasForeignKey(f => f.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Favorite>()
                 .HasOne(f => f.Advertisement)
                 .WithMany(a => a.Favorites)
-                .HasForeignKey(f => f.AdvertisementId);
+                .HasForeignKey(f => f.AdvertisementId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<AdvertisementGroup>()
                 .HasOne(g => g.AdvertisementCategory)
                 .WithMany(c => c.AdvertisementGroups)
-                .HasForeignKey(g => g.AdvertisementCategoryId);
+                .HasForeignKey(g => g.AdvertisementCategoryId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
