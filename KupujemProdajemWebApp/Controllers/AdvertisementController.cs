@@ -1,12 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using KupujemProdajemWebApp.Interfaces;
+using KupujemProdajemWebApp.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KupujemProdajemWebApp.Controllers
 {
     public class AdvertisementController : Controller
     {
-        public IActionResult Index()
+        private readonly IAdvertisementRepository _advertisementRepository;
+
+        public AdvertisementController(IAdvertisementRepository advertisementRepository)
         {
-            return View();
+            _advertisementRepository = advertisementRepository;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            IEnumerable<Advertisement> advertisements = await _advertisementRepository.GetAll();
+            return View(advertisements);
         }
     }
 }
