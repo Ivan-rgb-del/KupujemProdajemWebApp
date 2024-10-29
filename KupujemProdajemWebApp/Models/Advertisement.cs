@@ -18,13 +18,22 @@ namespace KupujemProdajemWebApp.Models
         public int Viewers { get; set; }
         public DateTime CreatedOn { get; set; }
         public bool IsActive { get; set; }
-        public AdvertisementCondition Condition { get; set; }
+
+        public AdvertisementCondition AdvertisementCondition { get; set; }
         public DeliveryType DeliveryType { get; set; }
-        public AdvertisementCategory Category { get; set; }
-        public AdvertisementGroup Group { get; set; }
-        public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
+
+        [ForeignKey("AdvertisementCategory")]
+        public int AdvertisementCategoryId { get; set; }
+        public AdvertisementCategory AdvertisementCategory { get; set; }
+
+        [ForeignKey("AdvertisementGroup")]
+        public int AdvertisementGroupId { get; set; }
+        public AdvertisementGroup AdvertisementGroup { get; set; }
+
         [ForeignKey("User")]
         public int UserId { get; set; }
         public User User { get; set; }
+
+        public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
     }
 }
