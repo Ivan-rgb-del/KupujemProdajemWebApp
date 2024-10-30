@@ -1,6 +1,7 @@
 ﻿using KupujemProdajemWebApp.Interfaces;
 using KupujemProdajemWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace KupujemProdajemWebApp.Controllers
 {
@@ -25,9 +26,21 @@ namespace KupujemProdajemWebApp.Controllers
             return View(advertisement);
         }
 
-        public IActionResult Create(Advertisement advertisement)
+        public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Advertisement advertisement)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(advertisement);
+            }
+
+            _advertisementRepository.Add(advertisement);
+            return RedirectToAction("Index");
         }
     }
 }
