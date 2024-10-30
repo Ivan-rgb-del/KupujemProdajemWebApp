@@ -14,8 +14,8 @@ namespace KupujemProdajemWebApp.Models
         public bool IsReplacement { get; set; }
         public string Description { get; set; }
         public string ImageURL { get; set; }
-        public int Likes { get; set; }
-        public int Viewers { get; set; }
+        public int? Likes { get; set; }
+        public int? Viewers { get; set; }
         public DateTime CreatedOn { get; set; }
         public bool IsActive { get; set; }
 
@@ -23,15 +23,15 @@ namespace KupujemProdajemWebApp.Models
         public DeliveryType DeliveryType { get; set; }
 
         [ForeignKey("AdvertisementCategory")]
-        public int AdvertisementCategoryId { get; set; }
+        public int? AdvertisementCategoryId { get; set; }
         public AdvertisementCategory AdvertisementCategory { get; set; }
 
         [ForeignKey("AdvertisementGroup")]
-        public int AdvertisementGroupId { get; set; }
+        public int? AdvertisementGroupId { get; set; }
         public AdvertisementGroup AdvertisementGroup { get; set; }
 
         [ForeignKey("User")]
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public User User { get; set; }
 
         [ForeignKey("Address")]
