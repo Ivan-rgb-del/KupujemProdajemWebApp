@@ -19,6 +19,12 @@ namespace KupujemProdajemWebApp.Controllers
             return View(advertisements);
         }
 
+        public async Task<IActionResult> Detail(int id)
+        {
+            Advertisement advertisement = await _advertisementRepository.GetByIdAsync(id);
+            return View(advertisement);
+        }
+
         public IActionResult Create(Advertisement advertisement)
         {
             return View(advertisement);
