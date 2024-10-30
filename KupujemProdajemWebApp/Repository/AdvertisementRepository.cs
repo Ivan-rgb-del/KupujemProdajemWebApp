@@ -26,6 +26,11 @@ namespace KupujemProdajemWebApp.Repository
             return Save();
         }
 
+        public async Task<IEnumerable<Advertisement>> GetAdsByCity(string city)
+        {
+            return await _context.Advertisements.Where(a => a.Address.City.Contains(city)).ToListAsync();
+        }
+
         public async Task<IEnumerable<Advertisement>> GetAll()
         {
             return await _context.Advertisements.ToListAsync();
@@ -33,7 +38,7 @@ namespace KupujemProdajemWebApp.Repository
 
         public Task<Advertisement> GetByIdAsync(int id)
         {
-            return _context.Advertisements.FirstOrDefaultAsync(a => a.Id == id);
+            return _context.Advertisements.Include(a => a.Address).FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public bool Save()
