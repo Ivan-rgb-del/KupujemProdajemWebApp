@@ -27,7 +27,7 @@ namespace KupujemProdajemWebApp.Controllers
 
         public IActionResult Create(Advertisement advertisement)
         {
-            return View(advertisement);
+            return View();
         }
     }
 }
