@@ -34,6 +34,7 @@ namespace KupujemProdajemWebApp.Models
         public int UserId { get; set; }
         public User User { get; set; }
 
+        [ForeignKey("Address")]
         public int AddressId { get; set; }
         public Address Address { get; set; }
 
