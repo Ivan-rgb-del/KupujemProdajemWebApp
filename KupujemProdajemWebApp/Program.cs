@@ -1,5 +1,6 @@
 using KupujemProdajemWebApp.Data;
 using KupujemProdajemWebApp.Interfaces;
+using KupujemProdajemWebApp.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddScoped<IAdvertisementRepository, IAdvertisementRepository>();
+builder.Services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
 
 var app = builder.Build();
 

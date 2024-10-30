@@ -18,5 +18,10 @@ namespace KupujemProdajemWebApp.Controllers
             IEnumerable<Advertisement> advertisements = await _advertisementRepository.GetAll();
             return View(advertisements);
         }
+
+        public IActionResult Create(Advertisement advertisement)
+        {
+            return View(advertisement);
+        }
     }
 }
