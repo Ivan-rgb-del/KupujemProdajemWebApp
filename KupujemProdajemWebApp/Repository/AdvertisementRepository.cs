@@ -38,7 +38,7 @@ namespace KupujemProdajemWebApp.Repository
 
         public Task<Advertisement> GetByIdAsync(int id)
         {
-            return _context.Advertisements.Include(a => a.Address).FirstOrDefaultAsync();
+            return _context.Advertisements.Include(a => a.Address).FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public List<AdvertisementCategory> GetCategories()
