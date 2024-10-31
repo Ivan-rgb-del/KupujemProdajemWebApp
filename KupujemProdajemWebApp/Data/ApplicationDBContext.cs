@@ -29,23 +29,23 @@ namespace KupujemProdajemWebApp.Data
                 .Property(a => a.DeliveryType)
                 .HasConversion<int>();
 
-            modelBuilder.Entity<Advertisement>()
-                .HasOne(a => a.User)
-                .WithMany(u => u.Advertisements)
-                .HasForeignKey(a => a.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
+            //modelBuilder.Entity<Advertisement>()
+            //    .HasOne<User>()
+            //    .WithMany()
+            //    .HasForeignKey(a => a.UserId)
+            //    .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Advertisement>()
-                .HasOne(a => a.AdvertisementCategory)
-                .WithMany(c => c.Advertisements)
-                .HasForeignKey(a => a.AdvertisementCategoryId)
-                .OnDelete(DeleteBehavior.NoAction);
+            //modelBuilder.Entity<Advertisement>()
+            //    .HasOne<AdvertisementCategory>()
+            //    .WithMany()
+            //    .HasForeignKey(a => a.AdvertisementCategoryId)
+            //    .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Advertisement>()
-                .HasOne(a => a.AdvertisementGroup)
-                .WithMany(g => g.Advertisements)
-                .HasForeignKey(a => a.AdvertisementGroupId)
-                .OnDelete(DeleteBehavior.NoAction);
+            //modelBuilder.Entity<Advertisement>()
+            //    .HasOne<AdvertisementGroup>()
+            //    .WithMany()
+            //    .HasForeignKey(a => a.AdvertisementGroupId)
+            //    .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Favorite>()
                 .HasOne(f => f.User)
@@ -59,23 +59,23 @@ namespace KupujemProdajemWebApp.Data
                 .HasForeignKey(f => f.AdvertisementId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<AdvertisementGroup>()
-                .HasOne(g => g.AdvertisementCategory)
-                .WithMany(c => c.AdvertisementGroups)
-                .HasForeignKey(g => g.AdvertisementCategoryId)
-                .OnDelete(DeleteBehavior.NoAction);
+            //modelBuilder.Entity<AdvertisementGroup>()
+            //    .HasOne(g => g.AdvertisementCategory)
+            //    .WithMany(c => c.AdvertisementGroups)
+            //    .HasForeignKey(g => g.AdvertisementCategoryId)
+            //    .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Advertisement>()
-                .HasOne(a => a.Address)
-                .WithMany()
-                .HasForeignKey(a => a.AddressId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<Advertisement>()
+            //    .HasOne(a => a.Address)
+            //    .WithMany()
+            //    .HasForeignKey(a => a.AddressId)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<User>()
-                .HasOne(u => u.Address)
-                .WithMany()
-                .HasForeignKey(u => u.AddressId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<User>()
+            //    .HasOne(u => u.Address)
+            //    .WithMany()
+            //    .HasForeignKey(u => u.AddressId)
+            //    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

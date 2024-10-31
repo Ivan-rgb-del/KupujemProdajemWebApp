@@ -7,9 +7,11 @@ namespace KupujemProdajemWebApp.Models
     {
         [Key]
         public int Id { get; set; }
+
         [ForeignKey("User")]
         public int UserId { get; set; }
         public User User { get; set; }
+
         [ForeignKey("Advertisement")]
         public int AdvertisementId { get; set; }
         public Advertisement Advertisement { get; set; }

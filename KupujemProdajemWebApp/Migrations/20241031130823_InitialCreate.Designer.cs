@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KupujemProdajemWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241030164154_InitialCreate")]
+    [Migration("20241031130823_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -217,28 +217,19 @@ namespace KupujemProdajemWebApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KupujemProdajemWebApp.Models.AdvertisementCategory", "AdvertisementCategory")
+                    b.HasOne("KupujemProdajemWebApp.Models.AdvertisementCategory", null)
                         .WithMany("Advertisements")
-                        .HasForeignKey("AdvertisementCategoryId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("AdvertisementCategoryId");
 
-                    b.HasOne("KupujemProdajemWebApp.Models.AdvertisementGroup", "AdvertisementGroup")
+                    b.HasOne("KupujemProdajemWebApp.Models.AdvertisementGroup", null)
                         .WithMany("Advertisements")
-                        .HasForeignKey("AdvertisementGroupId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("AdvertisementGroupId");
 
-                    b.HasOne("KupujemProdajemWebApp.Models.User", "User")
+                    b.HasOne("KupujemProdajemWebApp.Models.User", null)
                         .WithMany("Advertisements")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Address");
-
-                    b.Navigation("AdvertisementCategory");
-
-                    b.Navigation("AdvertisementGroup");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("KupujemProdajemWebApp.Models.AdvertisementGroup", b =>
@@ -246,7 +237,7 @@ namespace KupujemProdajemWebApp.Migrations
                     b.HasOne("KupujemProdajemWebApp.Models.AdvertisementCategory", "AdvertisementCategory")
                         .WithMany("AdvertisementGroups")
                         .HasForeignKey("AdvertisementCategoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AdvertisementCategory");

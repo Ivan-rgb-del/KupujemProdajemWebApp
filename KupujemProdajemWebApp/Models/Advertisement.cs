@@ -24,15 +24,12 @@ namespace KupujemProdajemWebApp.Models
 
         [ForeignKey("AdvertisementCategory")]
         public int? AdvertisementCategoryId { get; set; }
-        public AdvertisementCategory AdvertisementCategory { get; set; }
 
         [ForeignKey("AdvertisementGroup")]
         public int? AdvertisementGroupId { get; set; }
-        public AdvertisementGroup AdvertisementGroup { get; set; }
 
         [ForeignKey("User")]
         public int? UserId { get; set; }
-        public User User { get; set; }
 
         [ForeignKey("Address")]
         public int AddressId { get; set; }

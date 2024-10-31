@@ -28,6 +28,8 @@ namespace KupujemProdajemWebApp.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.AdvertisementCategories = _advertisementRepository.GetCategories();
+            ViewBag.AdvertisementGroups = _advertisementRepository.GetGroups();
             return View();
         }
 
@@ -36,6 +38,14 @@ namespace KupujemProdajemWebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.AdvertisementCategories = _advertisementRepository.GetCategories();
+                ViewBag.AdvertisementGroups = _advertisementRepository.GetGroups();
+
+                ViewBag.ValidationErrors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
                 return View(advertisement);
             }
 

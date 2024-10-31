@@ -76,7 +76,8 @@ namespace KupujemProdajemWebApp.Migrations
                         name: "FK_AdvertisementGroups_AdvertisementCategories_AdvertisementCategoryId",
                         column: x => x.AdvertisementCategoryId,
                         principalTable: "AdvertisementCategories",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

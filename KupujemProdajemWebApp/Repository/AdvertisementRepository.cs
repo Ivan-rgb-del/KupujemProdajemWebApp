@@ -41,6 +41,16 @@ namespace KupujemProdajemWebApp.Repository
             return _context.Advertisements.Include(a => a.Address).FirstOrDefaultAsync();
         }
 
+        public List<AdvertisementCategory> GetCategories()
+        {
+            return _context.AdvertisementCategories.ToList();
+        }
+
+        public List<AdvertisementGroup> GetGroups()
+        {
+            return _context.AdvertisementGroups.ToList();
+        }
+
         public bool Save()
         {
             var saved = _context.SaveChanges();

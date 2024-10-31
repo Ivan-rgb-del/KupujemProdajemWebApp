@@ -11,5 +11,7 @@ namespace KupujemProdajemWebApp.Interfaces
         bool Update(Advertisement advertisement);
         bool Delete(Advertisement advertisement);
         bool Save();
+        List<AdvertisementCategory> GetCategories();
+        List<AdvertisementGroup> GetGroups();
     }
 }
