@@ -9,9 +9,12 @@ namespace KupujemProdajemWebApp.Controllers
     {
         private readonly IAdvertisementRepository _advertisementRepository;
 
-        public AdvertisementController(IAdvertisementRepository advertisementRepository)
+        private readonly IPhotoService _photoService;
+
+        public AdvertisementController(IAdvertisementRepository advertisementRepository, IPhotoService photoService)
         {
             _advertisementRepository = advertisementRepository;
+            _photoService = photoService;
         }
 
         public async Task<IActionResult> Index()
