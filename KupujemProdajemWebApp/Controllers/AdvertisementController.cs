@@ -84,6 +84,9 @@ namespace KupujemProdajemWebApp.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
+            ViewBag.AdvertisementCategories = _advertisementRepository.GetCategories();
+            ViewBag.AdvertisementGroups = _advertisementRepository.GetGroups();
+
             var advertisement = await _advertisementRepository.GetByIdAsync(id);
 
             if (advertisement == null) return View("Error");
