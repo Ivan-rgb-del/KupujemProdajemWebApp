@@ -40,6 +40,10 @@ namespace KupujemProdajemWebApp.Repository
         {
             return _context.Advertisements.Include(a => a.Address).FirstOrDefaultAsync(a => a.Id == id);
         }
+        public Task<Advertisement> GetByIdAsyncNoTracking(int id)
+        {
+            return _context.Advertisements.Include(a => a.Address).AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
+        }
 
         public List<AdvertisementCategory> GetCategories()
         {

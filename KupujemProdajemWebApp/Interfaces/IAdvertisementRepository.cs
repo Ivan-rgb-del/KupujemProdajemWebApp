@@ -6,6 +6,7 @@ namespace KupujemProdajemWebApp.Interfaces
     {
         Task<IEnumerable<Advertisement>> GetAll();
         Task<Advertisement> GetByIdAsync(int id);
+        Task<Advertisement> GetByIdAsyncNoTracking(int id);
         Task<IEnumerable<Advertisement>> GetAdsByCity(string city);
         bool Add(Advertisement advertisement);
         bool Update(Advertisement advertisement);
