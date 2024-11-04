@@ -85,9 +85,27 @@ namespace KupujemProdajemWebApp.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var advertisement = await _advertisementRepository.GetByIdAsync(id);
+
             if (advertisement == null) return View("Error");
 
-            return View(advertisement);
+            var advertisementVM = new EditAdViewModel
+            {
+                Title = advertisement.Title,
+                Price = advertisement.Price,
+                IsFixedPrice = advertisement.IsFixedPrice,
+                IsReplacement = advertisement.IsReplacement,
+                Description = advertisement.Description,
+                ImageURL = advertisement.ImageURL,
+                CreatedOn = advertisement.CreatedOn,
+                IsActive = advertisement.IsActive,
+                AdvertisementCondition = advertisement.AdvertisementCondition,
+                DeliveryType = advertisement.DeliveryType,
+                AdvertisementCategoryId = advertisement.AdvertisementCategoryId,
+                AdvertisementGroupId = advertisement.AdvertisementGroupId,
+                Address = advertisement.Address
+            };
+
+            return View(advertisementVM);
         }
     }
 }
