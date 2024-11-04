@@ -81,5 +81,13 @@ namespace KupujemProdajemWebApp.Controllers
 
             return View(advertisementVM);
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var advertisement = await _advertisementRepository.GetByIdAsync(id);
+            if (advertisement == null) return View("Error");
+
+            return View(advertisement);
+        }
     }
 }
