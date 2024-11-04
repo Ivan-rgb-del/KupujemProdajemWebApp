@@ -11,13 +11,15 @@ namespace KupujemProdajemWebApp.ViewModels
         public bool IsFixedPrice { get; set; }
         public bool IsReplacement { get; set; }
         public string Description { get; set; }
-        public string ImageURL { get; set; }
+        public IFormFile Image { get; set; }
+        public string? URL { get; set; }
         public DateTime CreatedOn { get; set; }
         public bool IsActive { get; set; }
         public AdvertisementCondition AdvertisementCondition { get; set; }
         public DeliveryType DeliveryType { get; set; }
         public int? AdvertisementCategoryId { get; set; }
         public int? AdvertisementGroupId { get; set; }
+        public int AddressId { get; set; }
         public Address Address { get; set; }
     }
 }
