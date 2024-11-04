@@ -2,6 +2,7 @@ using KupujemProdajemWebApp.Data;
 using KupujemProdajemWebApp.Helpers;
 using KupujemProdajemWebApp.Interfaces;
 using KupujemProdajemWebApp.Repository;
+using KupujemProdajemWebApp.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 builder.Services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.AddScoped<IPhotoService, PhotoService>();
 
 var app = builder.Build();
 

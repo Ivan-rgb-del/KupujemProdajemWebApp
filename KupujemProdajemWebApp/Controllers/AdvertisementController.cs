@@ -1,7 +1,7 @@
 ﻿using KupujemProdajemWebApp.Interfaces;
 using KupujemProdajemWebApp.Models;
+using KupujemProdajemWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace KupujemProdajemWebApp.Controllers
 {
@@ -37,9 +37,9 @@ namespace KupujemProdajemWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Advertisement advertisement)
+        public async Task<IActionResult> Create(CreateAdViewModel advertisementVM)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 ViewBag.AdvertisementCategories = _advertisementRepository.GetCategories();
                 ViewBag.AdvertisementGroups = _advertisementRepository.GetGroups();
@@ -49,11 +49,37 @@ namespace KupujemProdajemWebApp.Controllers
                     .Select(e => e.ErrorMessage)
                     .ToList();
 
-                return View(advertisement);
+                var result = await _photoService.AddPhotoAsync(advertisementVM.ImageURL);
+                var advertisement = new Advertisement
+                {
+                    Title = advertisementVM.Title,
+                    Price = advertisementVM.Price,
+                    IsFixedPrice = advertisementVM.IsFixedPrice,
+                    IsReplacement = advertisementVM.IsReplacement,
+                    Description = advertisementVM.Description,
+                    ImageURL = result.Url.ToString(),
+                    CreatedOn = advertisementVM.CreatedOn,
+                    IsActive = advertisementVM.IsActive,
+                    AdvertisementCondition = advertisementVM.AdvertisementCondition,
+                    DeliveryType = advertisementVM.DeliveryType,
+                    AdvertisementCategoryId = advertisementVM.AdvertisementCategoryId,
+                    AdvertisementGroupId = advertisementVM.AdvertisementGroupId,
+                    Address = new Address
+                    {
+                        City = advertisementVM.Address.City,
+                        Street = advertisementVM.Address.Street
+                    }
+                    
+                };
+
+                _advertisementRepository.Add(advertisement);
+                return RedirectToAction("Index");
+            } else
+            {
+                ModelState.AddModelError("", "Photo upload failed!");
             }
 
-            _advertisementRepository.Add(advertisement);
-            return RedirectToAction("Index");
+            return View(advertisementVM);
         }
     }
 }
