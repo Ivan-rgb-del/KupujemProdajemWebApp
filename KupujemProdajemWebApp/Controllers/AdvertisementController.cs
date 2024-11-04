@@ -124,7 +124,7 @@ namespace KupujemProdajemWebApp.Controllers
                 return View("Edit", advertisementVM);
             }
 
-            var ad = await _advertisementRepository.GetByIdAsync(id);
+            var ad = await _advertisementRepository.GetByIdAsyncNoTracking(id);
 
             if (ad != null)
             {
