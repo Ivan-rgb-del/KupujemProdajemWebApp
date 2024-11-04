@@ -21,6 +21,26 @@
 
 <form method="post" asp-action="Create" enctype="multipart/form-data">
     <div class="form-group">
+        <label asp-for="AdvertisementCategoryId">Category</label>
+        <select asp-for="AdvertisementCategoryId" class="form-control">
+            <option value="">Select a category</option>
+            @foreach (var category in ViewBag.AdvertisementCategories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="AdvertisementGroupId">Category</label>
+        <select asp-for="AdvertisementGroupId" class="form-control">
+            <option value="">Select a group</option>
+            @foreach (var group in ViewBag.AdvertisementGroups)
+            {
+                <option value="@group.Id">@group.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
         <label asp-for="Title">Title</label>
         <input asp-for="Title" class="form-control" placeholder="Title">
     </div>
@@ -39,10 +59,6 @@
     <div class="form-group">
         <label asp-for="Description">Description</label>
         <input asp-for="Description" class="form-control" placeholder="Description">
-    </div>
-    <div class="form-group">
-        <label asp-for="ImageURL">Image</label>
-        <input asp-for="ImageURL" type="file" class="form-control" placeholder="Place Image">
     </div>
     <div class="form-group">
         <label asp-for="CreatedOn">Created On</label>
@@ -73,24 +89,8 @@
         <input asp-for="Address.Street" class="form-control" placeholder="Street">
     </div>
     <div class="form-group">
-        <label asp-for="AdvertisementCategoryId">Category</label>
-        <select asp-for="AdvertisementCategoryId" class="form-control">
-            <option value="">Select a category</option>
-            @foreach (var category in ViewBag.AdvertisementCategories)
-            {
-                <option value="@category.Id">@category.Name</option>
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="AdvertisementGroupId">Category</label>
-        <select asp-for="AdvertisementGroupId" class="form-control">
-            <option value="">Select a group</option>
-            @foreach (var group in ViewBag.AdvertisementGroups)
-            {
-                <option value="@group.Id">@group.Name</option>
-            }
-        </select>
+        <label asp-for="ImageURL">Image</label>
+        <input asp-for="ImageURL" type="file" class="form-control" placeholder="Place Image">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
