@@ -22,6 +22,11 @@
                                     <a asp-controller="Advertisement" asp-action="Detail" asp-route-id="@ad.Id" class="btn btn-sm btn-outline-secondary">View</a>
                                     <a asp-controller="Advertisement" asp-action="Edit" asp-route-id="@ad.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
                                 </div>
+                                <form asp-action="Delete" asp-route-id="@ad.Id" method="post">
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        Delete
+                                    </button>
+                                </form>
                                 <small class="text-muted">Likes: @ad.Likes</small>
                                 <small class="text-muted">Viewers: @ad.Viewers</small>
                             </div>

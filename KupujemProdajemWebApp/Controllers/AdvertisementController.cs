@@ -168,8 +168,7 @@ namespace KupujemProdajemWebApp.Controllers
             }
         }
 
-        [HttpPost]
-        [ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
             var ad = await _advertisementRepository.GetByIdAsync(id);
