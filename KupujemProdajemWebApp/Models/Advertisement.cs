@@ -29,7 +29,7 @@ namespace KupujemProdajemWebApp.Models
         public int? AdvertisementGroupId { get; set; }
 
         [ForeignKey("User")]
-        public int? UserId { get; set; }
+        public string? UserId { get; set; }
 
         [ForeignKey("Address")]
         public int AddressId { get; set; }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KupujemProdajemWebApp.Models
 {
-    public class User : IdentityUser<int>
+    public class User : IdentityUser
     {
         public ICollection<Advertisement> Advertisements { get; set; } = new List<Advertisement>();
         public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
