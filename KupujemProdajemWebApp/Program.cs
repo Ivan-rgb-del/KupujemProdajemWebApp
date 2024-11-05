@@ -4,8 +4,10 @@ using KupujemProdajemWebApp.Interfaces;
 using KupujemProdajemWebApp.Models;
 using KupujemProdajemWebApp.Repository;
 using KupujemProdajemWebApp.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,30 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     options.Password.RequiredLength = 12;
 }).AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme =
+    options.DefaultChallengeScheme =
+    options.DefaultForbidScheme =
+    options.DefaultScheme =
+    options.DefaultSignInScheme =
+    options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidIssuer = builder.Configuration["JWT: Issuer"],
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["JWT: Audience"],
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey
+        (
+            System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT: SigningKey"])
+        )
+    };
+});
+
 builder.Services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 builder.Services.AddScoped<IPhotoService, PhotoService>();
@@ -40,11 +66,13 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseStaticFiles();
 
 app.UseRouting();
-
-app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
