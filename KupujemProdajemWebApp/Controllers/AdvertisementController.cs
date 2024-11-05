@@ -167,5 +167,17 @@ namespace KupujemProdajemWebApp.Controllers
                 return View(advertisementVM);
             }
         }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var ad = await _advertisementRepository.GetByIdAsync(id);
+
+            if (ad == null) return View("Error");
+
+            _advertisementRepository.Delete(ad);
+            return RedirectToAction("Index");
+        }
     }
 }
