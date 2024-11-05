@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KupujemProdajemWebApp.Models
 {
-    public class User
+    public class User : IdentityUser
     {
         public int Id { get; set; }
         public string Email { get; set; }

@@ -1,8 +1,10 @@
 using KupujemProdajemWebApp.Data;
 using KupujemProdajemWebApp.Helpers;
 using KupujemProdajemWebApp.Interfaces;
+using KupujemProdajemWebApp.Models;
 using KupujemProdajemWebApp.Repository;
 using KupujemProdajemWebApp.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
