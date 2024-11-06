@@ -55,8 +55,17 @@ namespace KupujemProdajemWebApp.Controllers
 
             var createdUser = await _userManager.CreateAsync(newUser, registerVM.Password);
 
-            if (createdUser.Succeeded)
-                await _userManager.AddToRoleAsync(newUser, "User");
+            var roleResult = await _userManager.AddToRoleAsync(newUser, "User");
+
+            if (roleResult.Succeeded)
+            {
+                new NewUserViewModel
+                {
+                    UserName = newUser.UserName,
+                    Email = newUser.Email,
+                    Token = _tokenService.CreateToken(newUser)
+                };
+            }
 
             return RedirectToAction("Index", "Advertisement");
         }

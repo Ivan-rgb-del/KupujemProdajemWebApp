@@ -26,7 +26,7 @@ namespace KupujemProdajemWebApp.Services
                 new Claim(JwtRegisteredClaimNames.GivenName, user.UserName),
             };
 
-            var creds = new SigningCredentials(_securityKey, SecurityAlgorithms.EcdsaSha512Signature);
+            var creds = new SigningCredentials(_securityKey, SecurityAlgorithms.HmacSha512Signature);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
