@@ -3,6 +3,7 @@ using KupujemProdajemWebApp.Models;
 using KupujemProdajemWebApp.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace KupujemProdajemWebApp.Controllers
 {
@@ -23,6 +24,38 @@ namespace KupujemProdajemWebApp.Controllers
         {
             var response = new RegisterViewModel();
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel registerVM)
+        {
+            if (!ModelState.IsValid) return View(registerVM);
+
+            var user = await _userManager.FindByEmailAsync(registerVM.EmailAddress);
+
+            if (user != null)
+            {
+                TempData["Error"] = "This email address is already in use!";
+                return View(registerVM);
+            }
+
+            var newUser = new User
+            {
+                Email = registerVM.EmailAddress
+            };
+
+            var createdUser = await _userManager.CreateAsync(newUser, registerVM.Password);
+
+            if (createdUser.Succeeded)
+            {
+                var roleResult = await _userManager.AddToRoleAsync(newUser, "User");
+                if (roleResult.Succeeded)
+                {
+                    return View(roleResult);
+                }
+            }
+
+            return View("Home");
         }
     }
 }
