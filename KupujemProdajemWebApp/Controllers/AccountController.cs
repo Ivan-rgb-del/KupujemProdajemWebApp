@@ -21,8 +21,8 @@ namespace KupujemProdajemWebApp.Controllers
 
         public IActionResult Register()
         {
-            var response = new RegisterViewModel();
-            return View(response);
+            //var response = new RegisterViewModel();
+            return View();
         }
     }
 }
