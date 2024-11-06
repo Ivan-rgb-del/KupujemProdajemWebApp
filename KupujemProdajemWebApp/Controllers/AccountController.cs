@@ -42,7 +42,12 @@ namespace KupujemProdajemWebApp.Controllers
             var newUser = new User()
             {
                 Email = registerVM.EmailAddress,
-                UserName = registerVM.EmailAddress
+                UserName = registerVM.EmailAddress,
+                Address = new Address
+                {
+                    City = registerVM.Address.City,
+                    Street = registerVM.Address.Street,
+                }
             };
 
             var createdUser = await _userManager.CreateAsync(newUser, registerVM.Password);
@@ -50,7 +55,7 @@ namespace KupujemProdajemWebApp.Controllers
             if (createdUser.Succeeded)
                 await _userManager.AddToRoleAsync(newUser, "User");
 
-            return View("Home");
+            return RedirectToAction("Index", "Advertisement");
         }
     }
 }

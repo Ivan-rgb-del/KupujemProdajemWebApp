@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using KupujemProdajemWebApp.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace KupujemProdajemWebApp.ViewModels
 {
@@ -15,5 +16,8 @@ namespace KupujemProdajemWebApp.ViewModels
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Password do not match!")]
         public string ConfirmPassword { get; set; }
+        public Address Address { get; set; }
+        //public string City { get; set; }
+        //public string Street { get; set; }
     }
 }
