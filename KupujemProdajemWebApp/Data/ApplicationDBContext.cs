@@ -23,6 +23,21 @@ namespace KupujemProdajemWebApp.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            List<IdentityRole> roles = new List<IdentityRole>()
+            {
+                new IdentityRole
+                {
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
+                },
+                new IdentityRole
+                {
+                    Name = "User",
+                    NormalizedName = "USER"
+                },
+            };
+            modelBuilder.Entity<IdentityRole>().HasData(roles);
+
             modelBuilder.Entity<Advertisement>()
                 .Property(a => a.AdvertisementCondition)
                 .HasConversion<int>();
