@@ -47,7 +47,7 @@ namespace KupujemProdajemWebApp.Controllers
                 {
                     City = registerVM.Address.City,
                     Street = registerVM.Address.Street,
-                }
+                },
             };
 
             var createdUser = await _userManager.CreateAsync(newUser, registerVM.Password);
