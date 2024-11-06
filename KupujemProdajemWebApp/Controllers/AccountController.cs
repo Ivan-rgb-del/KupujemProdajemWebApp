@@ -1,4 +1,5 @@
 ﻿using KupujemProdajemWebApp.Data;
+using KupujemProdajemWebApp.Interfaces;
 using KupujemProdajemWebApp.Models;
 using KupujemProdajemWebApp.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -12,12 +13,14 @@ namespace KupujemProdajemWebApp.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly ITokenService _tokenService;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationDbContext dbContext)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationDbContext dbContext, ITokenService tokenService)
         {
             _context = dbContext;
             _userManager = userManager;
             _signInManager = signInManager;
+            _tokenService = tokenService;
         }
 
         public IActionResult Register()
