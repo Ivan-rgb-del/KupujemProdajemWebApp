@@ -39,21 +39,16 @@ namespace KupujemProdajemWebApp.Controllers
                 return View(registerVM);
             }
 
-            var newUser = new User
+            var newUser = new User()
             {
-                Email = registerVM.EmailAddress
+                Email = registerVM.EmailAddress,
+                UserName = registerVM.EmailAddress
             };
 
             var createdUser = await _userManager.CreateAsync(newUser, registerVM.Password);
 
             if (createdUser.Succeeded)
-            {
-                var roleResult = await _userManager.AddToRoleAsync(newUser, "User");
-                if (roleResult.Succeeded)
-                {
-                    return View(roleResult);
-                }
-            }
+                await _userManager.AddToRoleAsync(newUser, "User");
 
             return View("Home");
         }

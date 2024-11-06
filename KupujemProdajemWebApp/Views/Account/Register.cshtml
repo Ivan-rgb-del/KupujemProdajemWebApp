@@ -31,5 +31,8 @@
         <input asp-for="ConfirmPassword" type="password" class="form-control">
         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
     </div>
-    <a asp-controller="Account" type="submit" class="btn btn-primary">Submit</a>
+    <div class="form-group">
+        <input class="btn btn-outline-success float-right" type="submit" value="Sign Up" />
+        <a class="btn btn-outline-secondary" asp-controller="Advertisement" asp-action="Index">Cancel</a>
+    </div>
 </form>
