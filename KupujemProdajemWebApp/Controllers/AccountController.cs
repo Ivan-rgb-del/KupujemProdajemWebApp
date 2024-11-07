@@ -69,5 +69,10 @@ namespace KupujemProdajemWebApp.Controllers
 
             return RedirectToAction("Index", "Advertisement");
         }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
     }
 }
