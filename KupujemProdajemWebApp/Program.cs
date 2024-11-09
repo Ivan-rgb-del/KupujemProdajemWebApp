@@ -4,6 +4,7 @@ using KupujemProdajemWebApp.Interfaces;
 using KupujemProdajemWebApp.Models;
 using KupujemProdajemWebApp.Repository;
 using KupujemProdajemWebApp.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
