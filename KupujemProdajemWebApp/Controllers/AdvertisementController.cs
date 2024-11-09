@@ -69,7 +69,7 @@ namespace KupujemProdajemWebApp.Controllers
                         City = advertisementVM.Address.City,
                         Street = advertisementVM.Address.Street
                     }
-                    
+
                 };
 
                 _advertisementRepository.Add(advertisement);

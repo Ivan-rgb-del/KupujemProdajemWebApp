@@ -79,31 +79,52 @@ namespace KupujemProdajemWebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginVM)
         {
-            if (!ModelState.IsValid) return View(loginVM);
-
-            var user = await _userManager.FindByEmailAsync(loginVM.EmailAddress);
-
-            if (user == null)
+            if (ModelState.IsValid)
             {
-                TempData["Error"] = "Wrong credentials. Please try again";
-                return View(loginVM);
+                User appUser = await _userManager.FindByEmailAsync(loginVM.EmailAddress);
+                if (appUser != null)
+                {
+                    await _signInManager.SignOutAsync();
+                    Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(appUser, loginVM.Password, false, false);
+                    if (result.Succeeded)
+                        return Redirect("/");
+                }
+                ModelState.AddModelError(nameof(loginVM.EmailAddress), "Login Failed: Invalid Email or password");
             }
+            return View(loginVM);
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, loginVM.Password, false);
+            //if (!ModelState.IsValid) return View(loginVM);
 
-            if (!result.Succeeded)
-            {
-                TempData["Error"] = "Username not found/or password incorrect!";
-                return View(loginVM);
-            }
+            //var user = await _userManager.FindByEmailAsync(loginVM.EmailAddress);
 
-            new NewUserViewModel
-            {
-                UserName = user.Email,
-                Email = user.Email,
-                Token = _tokenService.CreateToken(user)
-            };
-            return RedirectToAction("Index", "Advertisement");
+            //if (user == null)
+            //{
+            //    TempData["Error"] = "Wrong credentials. Please try again";
+            //    return View(loginVM);
+            //}
+
+            //var result = await _signInManager.CheckPasswordSignInAsync(user, loginVM.Password, false);
+
+            //if (!result.Succeeded)
+            //{
+            //    TempData["Error"] = "Username not found/or password incorrect!";
+            //    return View(loginVM);
+            //}
+
+            //new NewUserViewModel
+            //{
+            //    UserName = user.Email,
+            //    Email = user.Email,
+            //    Token = _tokenService.CreateToken(user)
+            //};
+
+            //return RedirectToAction("Index", "Advertisement");
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
         }
     }
 }
