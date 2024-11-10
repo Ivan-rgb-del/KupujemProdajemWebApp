@@ -85,7 +85,7 @@ namespace KupujemProdajemWebApp.Controllers
                 if (appUser != null)
                 {
                     await _signInManager.SignOutAsync();
-                    Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(appUser, loginVM.Password, false, false);
+                    var result = await _signInManager.PasswordSignInAsync(appUser, loginVM.Password, false, false);
                     if (result.Succeeded)
                         return Redirect("/");
                 }
