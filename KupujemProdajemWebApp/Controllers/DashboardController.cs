@@ -1,23 +1,27 @@
 ﻿using KupujemProdajemWebApp.Data;
 using KupujemProdajemWebApp.Interfaces;
+using KupujemProdajemWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KupujemProdajemWebApp.Controllers
 {
     public class DashboardController : Controller
     {
-        private readonly ApplicationDbContext _context;
         private readonly IDashboardRepository _dashboardRepository;
 
-        public DashboardController(ApplicationDbContext context, IDashboardRepository dashboardRepository)
+        public DashboardController(IDashboardRepository dashboardRepository)
         {
-            _context = context;
             _dashboardRepository = dashboardRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var userAds = await _dashboardRepository.GetAllUserAds();
+            var dashboardViewModel = new DashboardViewModel
+            {
+                Advertisements = userAds,
+            };
+            return View(dashboardViewModel);
         }
     }
 }
