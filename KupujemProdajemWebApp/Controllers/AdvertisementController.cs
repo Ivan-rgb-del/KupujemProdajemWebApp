@@ -30,6 +30,13 @@ namespace KupujemProdajemWebApp.Controllers
             return View(advertisement);
         }
 
+        public async Task<IActionResult> FilterByCity(string city)
+        {
+            var ads = await _advertisementRepository.GetAdsByCity(city);
+
+            return View("Index", ads);
+        }
+
         public IActionResult Create()
         {
             ViewBag.AdvertisementCategories = _advertisementRepository.GetCategories();
