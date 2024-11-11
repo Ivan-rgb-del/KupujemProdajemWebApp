@@ -21,5 +21,6 @@ namespace KupujemProdajemWebApp.ViewModels
         public int? AdvertisementGroupId { get; set; }
         public int AddressId { get; set; }
         public Address Address { get; set; }
+        public string AppUserId { get; set; }
     }
 }

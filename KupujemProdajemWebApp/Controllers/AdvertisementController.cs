@@ -99,6 +99,8 @@ namespace KupujemProdajemWebApp.Controllers
 
             if (advertisement == null) return View("Error");
 
+            var curUserId = _httpContextAccessor.HttpContext.User.GetUserId();
+
             var advertisementVM = new EditAdViewModel
             {
                 Title = advertisement.Title,
@@ -114,7 +116,8 @@ namespace KupujemProdajemWebApp.Controllers
                 AdvertisementCategoryId = advertisement.AdvertisementCategoryId,
                 AdvertisementGroupId = advertisement.AdvertisementGroupId,
                 AddressId = advertisement.AddressId,
-                Address = advertisement.Address
+                Address = advertisement.Address,
+                AppUserId = curUserId,
             };
 
             return View(advertisementVM);
@@ -164,7 +167,8 @@ namespace KupujemProdajemWebApp.Controllers
                     AdvertisementCategoryId = advertisementVM.AdvertisementCategoryId,
                     AdvertisementGroupId = advertisementVM.AdvertisementGroupId,
                     AddressId = advertisementVM.AddressId,
-                    Address = advertisementVM.Address
+                    Address = advertisementVM.Address,
+                    UserId = advertisementVM.AppUserId,
                 };
 
                 _advertisementRepository.Update(advertisement);
