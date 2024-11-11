@@ -17,8 +17,8 @@ namespace KupujemProdajemWebApp.Repository
 
         public async Task<List<Advertisement>> GetAllUserAds()
         {
-            var curUser = _httpContextAccessor.HttpContext?.User;
-            var userAds = _context.Advertisements.Where(a => a.UserId == curUser.ToString());
+            var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();
+            var userAds = _context.Advertisements.Where(a => a.UserId == curUser);
 
             return userAds.ToList();
         }
