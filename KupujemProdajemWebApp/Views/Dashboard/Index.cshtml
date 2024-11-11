@@ -20,6 +20,12 @@
                     <div class="mb-1 text-muted">@ad.Likes</div>
                     <div class="mb-1 text-muted">@ad.Viewers</div>
                     <p class="card-text mb-auto">@ad.Description</p>
+                    <a asp-controller="Advertisement" asp-action="Edit" asp-route-id="@ad.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <form asp-action="Delete" asp-route-id="@ad.Id" method="post">
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            Delete
+                        </button>
+                    </form>
                 </div>
                 <img class="card-img-right flex-auto d-none d-md-block" src="@ad.ImageURL" alt="Card image cap">
             </div>
