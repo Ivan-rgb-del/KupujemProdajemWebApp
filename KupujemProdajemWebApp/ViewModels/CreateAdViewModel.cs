@@ -19,5 +19,6 @@ namespace KupujemProdajemWebApp.ViewModels
         public int AdvertisementCategoryId { get; set; }
         public int AdvertisementGroupId { get; set; }
         public Address Address { get; set; }
+        public string AppUserId { get; set; }
     }
 }

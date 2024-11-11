@@ -8,13 +8,14 @@ namespace KupujemProdajemWebApp.Controllers
     public class AdvertisementController : Controller
     {
         private readonly IAdvertisementRepository _advertisementRepository;
-
         private readonly IPhotoService _photoService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AdvertisementController(IAdvertisementRepository advertisementRepository, IPhotoService photoService)
+        public AdvertisementController(IAdvertisementRepository advertisementRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor)
         {
             _advertisementRepository = advertisementRepository;
             _photoService = photoService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IActionResult> Index()
@@ -33,7 +34,14 @@ namespace KupujemProdajemWebApp.Controllers
         {
             ViewBag.AdvertisementCategories = _advertisementRepository.GetCategories();
             ViewBag.AdvertisementGroups = _advertisementRepository.GetGroups();
-            return View();
+
+            var curUserId = _httpContextAccessor.HttpContext.User.GetUserId();
+            var createAdViewModel = new CreateAdViewModel
+            {
+                AppUserId = curUserId,
+            };
+
+            return View(createAdViewModel);
         }
 
         [HttpPost]
@@ -64,12 +72,12 @@ namespace KupujemProdajemWebApp.Controllers
                     DeliveryType = advertisementVM.DeliveryType,
                     AdvertisementCategoryId = advertisementVM.AdvertisementCategoryId,
                     AdvertisementGroupId = advertisementVM.AdvertisementGroupId,
+                    UserId = advertisementVM.AppUserId,
                     Address = new Address
                     {
                         City = advertisementVM.Address.City,
                         Street = advertisementVM.Address.Street
                     }
-
                 };
 
                 _advertisementRepository.Add(advertisement);
