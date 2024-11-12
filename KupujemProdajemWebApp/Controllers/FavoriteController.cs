@@ -37,8 +37,13 @@ namespace KupujemProdajemWebApp.Controllers
             } else
             {
                 TempData["Message"] = "Ad saved to favorites!";
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Favorites");
             }
+        }
+
+        public IActionResult Index()
+        {
+            return View();
         }
     }
 }
