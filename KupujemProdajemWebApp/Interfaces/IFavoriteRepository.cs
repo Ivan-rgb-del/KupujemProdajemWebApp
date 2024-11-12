@@ -6,6 +6,6 @@ namespace KupujemProdajemWebApp.Interfaces
     public interface IFavoriteRepository
     {
         Task<bool> SaveToFavorites(Favorite favorite);
-        Task<List<Favorite>> GetAllFavoritesByUserId();
+        Task<List<Favorite>> GetAllFavoritesByUserId(string userId);
     }
 }

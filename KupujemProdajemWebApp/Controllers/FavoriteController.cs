@@ -43,11 +43,12 @@ namespace KupujemProdajemWebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var userFavoriteAds = await _favoriteRepository.GetAllFavoritesByUserId();
+            var userId = _contextAccessor.HttpContext.User.GetUserId();
+            var userFavoriteAds = await _favoriteRepository.GetAllFavoritesByUserId(userId);
 
             var savedAdsVM = new SavedAdsViewModel
             {
-                FavoriteAds = userFavoriteAds,
+                FavoriteAds = userFavoriteAds
             };
 
             return View(savedAdsVM);
