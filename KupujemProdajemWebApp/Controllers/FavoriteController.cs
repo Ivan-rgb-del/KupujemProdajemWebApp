@@ -41,9 +41,16 @@ namespace KupujemProdajemWebApp.Controllers
             }
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var userFavoriteAds = await _favoriteRepository.GetAllFavoritesByUserId();
+
+            var savedAdsVM = new SavedAdsViewModel
+            {
+                FavoriteAds = userFavoriteAds,
+            };
+
+            return View(savedAdsVM);
         }
     }
 }

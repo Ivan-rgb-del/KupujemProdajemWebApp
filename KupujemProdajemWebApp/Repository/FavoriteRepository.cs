@@ -9,10 +9,20 @@ namespace KupujemProdajemWebApp.Repository
     public class FavoriteRepository : IFavoriteRepository
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public FavoriteRepository(ApplicationDbContext context)
+        public FavoriteRepository(ApplicationDbContext context, IHttpContextAccessor contextAccessor)
         {
             _context = context;
+            _contextAccessor = contextAccessor;
+        }
+
+        public async Task<List<Favorite>> GetAllFavoritesByUserId()
+        {
+            var userId = _contextAccessor.HttpContext.User.GetUserId();
+            var userSavedAds = _context.Favorites.Where(f => f.UserId == userId);
+
+            return userSavedAds.ToList();
         }
 
         public async Task<bool> SaveToFavorites(Favorite favorite)
