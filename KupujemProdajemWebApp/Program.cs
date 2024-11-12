@@ -54,6 +54,7 @@ builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection(
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
 
 var app = builder.Build();
 
