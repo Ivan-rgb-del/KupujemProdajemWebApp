@@ -7,5 +7,7 @@ namespace KupujemProdajemWebApp.Interfaces
     {
         Task<bool> SaveToFavorites(Favorite favorite);
         Task<List<Favorite>> GetAllFavoritesByUserId(string userId);
+        Task<bool> RemoveFromFavorites(string userId, int adId);
+        bool Save();
     }
 }

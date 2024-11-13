@@ -25,6 +25,20 @@ namespace KupujemProdajemWebApp.Repository
             return userSavedAds;
         }
 
+        public async Task<bool> RemoveFromFavorites(string userId, int adId)
+        {
+            var favorite = await _context.Favorites.FirstOrDefaultAsync(f => f.AdvertisementId == adId && f.UserId == userId);
+
+            _context.Favorites.Remove(favorite);
+            return Save();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
+
         public async Task<bool> SaveToFavorites(Favorite favorite)
         {
             var exsistingFavorite = await _context.Favorites.FirstOrDefaultAsync(f => f.UserId == favorite.UserId && f.AdvertisementId == favorite.AdvertisementId);

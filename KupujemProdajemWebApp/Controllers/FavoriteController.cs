@@ -53,5 +53,24 @@ namespace KupujemProdajemWebApp.Controllers
 
             return View(savedAdsVM);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveSavedAdFromFavorite(int adId)
+        {
+            var userId = _contextAccessor.HttpContext.User.GetUserId();
+
+            var isDeleted = await _favoriteRepository.RemoveFromFavorites(userId, adId);
+
+            if (isDeleted)
+            {
+                TempData["Message"] = "Ad removed from favorites!";
+            }
+            else
+            {
+                TempData["Message"] = "Ad was not found in favorites.";
+            }
+
+            return RedirectToAction("Index", "Advertisement");
+        }
     }
 }

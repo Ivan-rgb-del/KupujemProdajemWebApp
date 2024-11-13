@@ -17,6 +17,14 @@
                         <a class="text-dark" href="#">@ad.Advertisement.Price</a>
                     </h3>
                     <p class="card-text mb-auto">@ad.Advertisement.Description</p>
+
+                    <form asp-action="RemoveSavedAdFromFavorite" asp-controller="Favorite" method="post">
+                        <input type="hidden" name="adId" value="@ad.AdvertisementId" />
+                        <button type="submit" class="btn btn-danger">
+                            Remove
+                        </button>
+                    </form>
+
                 </div>
                 <img class="card-img-right flex-auto d-none d-md-block" src="@ad.Advertisement.ImageURL" alt="Card image cap">
             </div>
