@@ -129,13 +129,35 @@ namespace KupujemProdajemWebApp.Controllers
 
         public IActionResult ResetPassword()
         {
-            return View();
+            var resetPasswordViewModel = new ResetPasswordViewModel();
+            return View(resetPasswordViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ResetPassword()
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel resetPasswordViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(resetPasswordViewModel);
+            }
 
+            var user = await _userManager.FindByEmailAsync(resetPasswordViewModel.Email);
+
+            if (user == null)
+            {
+                TempData["Error"] = "This user does not exist!";
+                return View(resetPasswordViewModel);
+            }
+
+            var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _userManager.ResetPasswordAsync(user, resetToken, resetPasswordViewModel.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View(resetPasswordViewModel);
         }
     }
 }
