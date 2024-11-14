@@ -89,7 +89,8 @@ namespace KupujemProdajemWebApp.Controllers
 
                 _advertisementRepository.Add(advertisement);
                 return RedirectToAction("Index");
-            } else
+            }
+            else
             {
                 ModelState.AddModelError("", "Photo upload failed!");
             }
@@ -181,7 +182,8 @@ namespace KupujemProdajemWebApp.Controllers
                 _advertisementRepository.Update(advertisement);
 
                 return RedirectToAction("Index");
-            } else
+            }
+            else
             {
                 return View(advertisementVM);
             }
