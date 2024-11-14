@@ -126,5 +126,16 @@ namespace KupujemProdajemWebApp.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
+
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword()
+        {
+
+        }
     }
 }
