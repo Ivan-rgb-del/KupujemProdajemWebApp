@@ -62,12 +62,14 @@ namespace KupujemProdajemWebApp.Repository
             return Save();
         }
 
-        public async Task<IEnumerable<Advertisement>> FilterAds(string? city, int? categoryId, int? groupId)
+        public async Task<IEnumerable<Advertisement>> FilterAds(string? city, int? categoryId, int? groupId, bool IsFixedPrice, bool IsReplacement)
         {
             return await _context.Advertisements
                 .Where(a => a.Address.City.Contains(city))
                 .Where(a => a.AdvertisementCategoryId == categoryId)
                 .Where(a => a.AdvertisementGroupId == groupId)
+                .Where(a => a.IsFixedPrice == IsFixedPrice)
+                .Where(a => a.IsReplacement == IsReplacement)
                 .ToListAsync();
         }
     }

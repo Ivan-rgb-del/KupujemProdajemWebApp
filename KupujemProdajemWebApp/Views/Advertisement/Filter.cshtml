@@ -7,9 +7,11 @@
 @{
 }
 
-<form class="d-flex" asp-controller="Advertisement" asp-action="FilterAds">
-    <div class="input-group mb-3">
-        <input name="city" type="search" class="form-control" aria-label="Default" placeholder="Search">
+<form asp-controller="Advertisement" asp-action="FilterAds">
+    <div class="form-group">
+        <div class="input-group mb-3">
+            <input name="city" type="search" class="form-control" aria-label="Default" placeholder="Search">
+        </div>
     </div>
 
     <div class="form-group">
@@ -31,6 +33,14 @@
                 <option value="@group.Id">@group.Name</option>
             }
         </select>
+    </div>
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" asp-for="IsFixedPrice">
+        <label class="form-check-label" asp-for="IsFixedPrice">Is Price Fixed?</label>
+    </div>
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" asp-for="IsReplacement">
+        <label class="form-check-label" asp-for="IsReplacement">Is Product for Replacement?</label>
     </div>
 
     <button class="btn btn-dark" type="submit">Search</button>
