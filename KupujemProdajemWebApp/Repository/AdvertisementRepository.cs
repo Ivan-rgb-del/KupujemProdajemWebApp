@@ -62,7 +62,7 @@ namespace KupujemProdajemWebApp.Repository
             return Save();
         }
 
-        public async Task<IEnumerable<Advertisement>> FilterAds(string? city, int? categoryId, int? groupId, bool IsFixedPrice, bool IsReplacement)
+        public async Task<IEnumerable<Advertisement>> FilterAds(string? city, int? categoryId, int? groupId, bool IsFixedPrice, bool IsReplacement, double minPrice, double maxPrice)
         {
             return await _context.Advertisements
                 .Where(a => a.Address.City.Contains(city))
@@ -70,6 +70,7 @@ namespace KupujemProdajemWebApp.Repository
                 .Where(a => a.AdvertisementGroupId == groupId)
                 .Where(a => a.IsFixedPrice == IsFixedPrice)
                 .Where(a => a.IsReplacement == IsReplacement)
+                .Where(a => a.Price >= minPrice && a.Price <= maxPrice)
                 .ToListAsync();
         }
     }

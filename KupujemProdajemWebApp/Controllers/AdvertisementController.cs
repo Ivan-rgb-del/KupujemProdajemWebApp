@@ -37,9 +37,9 @@ namespace KupujemProdajemWebApp.Controllers
             return View();
         }
 
-        public async Task<IActionResult> FilterAds(string? city, int? categoryId, int? groupId, bool IsFixedPrice, bool IsReplacement)
+        public async Task<IActionResult> FilterAds(string? city, int? categoryId, int? groupId, bool IsFixedPrice, bool IsReplacement, double minPrice, double maxPrice)
         {
-            var ads = await _advertisementRepository.FilterAds(city, categoryId, groupId, IsFixedPrice, IsReplacement);
+            var ads = await _advertisementRepository.FilterAds(city, categoryId, groupId, IsFixedPrice, IsReplacement, minPrice, maxPrice);
 
             return View("Index", ads);
         }
