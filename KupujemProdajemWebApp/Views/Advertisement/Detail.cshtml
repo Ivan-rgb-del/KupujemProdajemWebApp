@@ -9,33 +9,33 @@
     <div class="col-md-6">
         <div class="card flex-md-row mb-4 box-shadow h-md-250">
             <div class="card-body d-flex flex-column align-items-start">
-                <strong class="d-inline-block mb-2 text-primary">Title: @Model.Title</strong>
+                <strong class="d-inline-block mb-2 text-primary"><b>Title: </b>@Model.Title</strong>
                 <h3 class="mb-0">
-                    <a class="text-dark" href="#">Price: @Model.Price€</a>
+                    <a class="text-dark" href="#"><b>Price: </b>@Model.Price€</a>
                 </h3>
-                <div class="mb-1 text-muted">Likes: @Model.Likes</div>
-                <div class="mb-1 text-muted">Views: @Model.Viewers</div>
-                <p class="card-text mb-auto">Description: @Model.Description</p>
-                <p class="card-text mb-auto">City: @Model.Address.City</p>
-                <p class="card-text mb-auto">Address: @Model.Address.Street</p>
-                <p class="card-text mb-auto">Delivery type: @Model.DeliveryType</p>
-                <p class="card-text mb-auto">Condition: @Model.AdvertisementCondition</p>
+                <div class="mb-1 text-muted"><b>Likes: </b>@Model.Likes</div>
+                <div class="mb-1 text-muted"><b>Views: </b>@Model.Viewers</div>
+                <p class="card-text mb-auto"><b>Description: </b>@Model.Description</p>
+                <p class="card-text mb-auto"><b>City: </b>@Model.Address.City</p>
+                <p class="card-text mb-auto"><b>Address: </b>@Model.Address.Street</p>
+                <p class="card-text mb-auto"><b>Delivery type: </b>@Model.DeliveryType</p>
+                <p class="card-text mb-auto"><b>Condition: </b>@Model.AdvertisementCondition</p>
 
                 @if (Model.IsReplacement)
                 {
-                    <p class="card-text mb-auto">Replacement: Yes</p>
+                    <p class="card-text mb-auto"><b>Replacement: </b>Yes</p>
                 } else
                 {
-                    <p class="card-text mb-auto">Replacement: No</p>
+                    <p class="card-text mb-auto"><b>Replacement: </b>No</p>
                 }
 
                 @if (Model.IsFixedPrice)
                 {
-                    <p class="card-text mb-auto">Price is fixed</p>
+                    <p class="card-text mb-auto"><b>Price is fixed</b></p>
                 }
                 else
                 {
-                    <p class="card-text mb-auto">Price is not fixed</p>
+                    <p class="card-text mb-auto"><b>Price is not fixed</b></p>
                 }
 
             </div>
