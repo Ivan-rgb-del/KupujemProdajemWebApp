@@ -73,5 +73,17 @@ namespace KupujemProdajemWebApp.Repository
                 .Where(a => a.Price >= minPrice && a.Price <= maxPrice)
                 .ToListAsync();
         }
+
+        public bool IncrementViews(int adId)
+        {
+            var ad = _context.Advertisements.FirstOrDefault(a => a.Id == adId);
+
+            if (ad != null)
+            {
+                ad.Viewers = (ad.Viewers ?? 0) + 1;
+            }
+
+            return Save();
+        }
     }
 }
