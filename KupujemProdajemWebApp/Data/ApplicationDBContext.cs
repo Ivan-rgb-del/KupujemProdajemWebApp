@@ -1,8 +1,8 @@
-﻿using KupujemProdajemWebApp.Data.Enum;
-using KupujemProdajemWebApp.Models;
+﻿using KupujemProdajemWebApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace KupujemProdajemWebApp.Data
 {
@@ -93,6 +93,25 @@ namespace KupujemProdajemWebApp.Data
             //    .WithMany()
             //    .HasForeignKey(u => u.AddressId)
             //    .OnDelete(DeleteBehavior.Cascade);
+        }
+        public override int SaveChanges()
+        {
+            foreach (var item in this.ChangeTracker.Entries()
+            .Where(e => e.Entity is Models.BaseClass && (e.State == EntityState.Added || e.State == EntityState.Modified))
+            .Select(e => e.Entity as Models.BaseClass)
+            )
+            {
+                if (item.CreatedOn <= DateTime.MinValue)
+                {
+                    item.CreatedOn = DateTime.UtcNow;
+                }
+                else
+                {
+                    item.UpdatedOn = DateTime.UtcNow;
+                }
+            }
+
+            return base.SaveChanges();
         }
     }
 }

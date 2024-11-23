@@ -83,7 +83,6 @@ namespace KupujemProdajemWebApp.Controllers
                     IsReplacement = advertisementVM.IsReplacement,
                     Description = advertisementVM.Description,
                     ImageURL = result.Url.ToString(),
-                    CreatedOn = advertisementVM.CreatedOn,
                     IsActive = advertisementVM.IsActive,
                     AdvertisementCondition = advertisementVM.AdvertisementCondition,
                     DeliveryType = advertisementVM.DeliveryType,
@@ -178,7 +177,6 @@ namespace KupujemProdajemWebApp.Controllers
                     IsReplacement = advertisementVM.IsReplacement,
                     Description = advertisementVM.Description,
                     ImageURL = photoResult.Url.ToString(),
-                    CreatedOn = advertisementVM.CreatedOn,
                     IsActive = advertisementVM.IsActive,
                     AdvertisementCondition = advertisementVM.AdvertisementCondition,
                     DeliveryType = advertisementVM.DeliveryType,
@@ -202,7 +200,7 @@ namespace KupujemProdajemWebApp.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            var ad = await _advertisementRepository.GetByIdAsync(id);
+            var ad = await _advertisementRepository.GetByIdAsyncNoTracking(id);
 
             if (ad == null) return View("Error");
 

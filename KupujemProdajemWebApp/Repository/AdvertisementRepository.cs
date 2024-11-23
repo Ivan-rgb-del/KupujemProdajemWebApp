@@ -65,7 +65,7 @@ namespace KupujemProdajemWebApp.Repository
         public async Task<IEnumerable<Advertisement>> FilterAds(string? city, int? categoryId, int? groupId, bool IsFixedPrice, bool IsReplacement, double minPrice, double maxPrice)
         {
             return await _context.Advertisements
-                .Where(a => a.Address.City.Contains(city))
+                .Where(a => city == null || a.Address.City.Contains(city))
                 .Where(a => a.AdvertisementCategoryId == categoryId)
                 .Where(a => a.AdvertisementGroupId == groupId)
                 .Where(a => a.IsFixedPrice == IsFixedPrice)

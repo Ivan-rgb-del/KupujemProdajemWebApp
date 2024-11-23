@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KupujemProdajemWebApp.Models
 {
-    public class Advertisement
+    public class Advertisement : BaseClass
     {
         [Key]
         public int Id { get; set; }
@@ -16,7 +16,6 @@ namespace KupujemProdajemWebApp.Models
         public string ImageURL { get; set; }
         public int? Likes { get; set; }
         public int? Viewers { get; set; }
-        public DateTime CreatedOn { get; set; }
         public bool IsActive { get; set; }
 
         public AdvertisementCondition AdvertisementCondition { get; set; }
