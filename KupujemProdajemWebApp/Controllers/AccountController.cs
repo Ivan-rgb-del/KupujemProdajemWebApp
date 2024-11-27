@@ -1,6 +1,7 @@
 ﻿using KupujemProdajemWebApp.Data;
 using KupujemProdajemWebApp.Interfaces;
 using KupujemProdajemWebApp.Models;
+using KupujemProdajemWebApp.Services;
 using KupujemProdajemWebApp.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,13 +15,15 @@ namespace KupujemProdajemWebApp.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ITokenService _tokenService;
+        private readonly AccountService _accountService;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationDbContext dbContext, ITokenService tokenService)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationDbContext dbContext, ITokenService tokenService, AccountService accountService)
         {
             _context = dbContext;
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
+            _accountService = accountService;
         }
 
         public IActionResult Register()
@@ -34,40 +37,16 @@ namespace KupujemProdajemWebApp.Controllers
         {
             if (!ModelState.IsValid) return View(registerVM);
 
-            var user = await _userManager.FindByEmailAsync(registerVM.EmailAddress);
-
-            if (user != null)
+            try
             {
-                TempData["Error"] = "This email address is already in use!";
+                await _accountService.RegisterNewUser(registerVM);
+                return RedirectToAction("Index", "Advertisement");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
                 return View(registerVM);
             }
-
-            var newUser = new User()
-            {
-                Email = registerVM.EmailAddress,
-                UserName = registerVM.EmailAddress,
-                Address = new Address
-                {
-                    City = registerVM.Address.City,
-                    Street = registerVM.Address.Street,
-                },
-            };
-
-            var createdUser = await _userManager.CreateAsync(newUser, registerVM.Password);
-
-            var roleResult = await _userManager.AddToRoleAsync(newUser, "User");
-
-            if (roleResult.Succeeded)
-            {
-                new NewUserViewModel
-                {
-                    UserName = newUser.UserName,
-                    Email = newUser.Email,
-                    Token = _tokenService.CreateToken(newUser)
-                };
-            }
-
-            return RedirectToAction("Index", "Advertisement");
         }
 
         public IActionResult Login()
