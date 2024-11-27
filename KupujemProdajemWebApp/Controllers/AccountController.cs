@@ -70,7 +70,7 @@ namespace KupujemProdajemWebApp.Controllers
 
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            await _accountService.LogoutUser();
             return RedirectToAction("Login", "Account");
         }
 

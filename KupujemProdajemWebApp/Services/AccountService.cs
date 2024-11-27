@@ -60,5 +60,10 @@ namespace KupujemProdajemWebApp.Services
 
             return result.Succeeded ? appUser : null;
         }
+
+        public async Task LogoutUser()
+        {
+            await _signInManager.SignOutAsync();
+        }
     }
 }
