@@ -10,14 +10,10 @@ namespace KupujemProdajemWebApp.Controllers
 {
     public class FavoriteController : Controller
     {
-        private readonly IFavoriteRepository _favoriteRepository;
-        private readonly IHttpContextAccessor _contextAccessor;
         private readonly FavoriteService _favoriteService;
 
-        public FavoriteController(IFavoriteRepository favoriteRepository, IHttpContextAccessor contextAccessor, FavoriteService favoriteService)
+        public FavoriteController(FavoriteService favoriteService)
         {
-            _favoriteRepository = favoriteRepository;
-            _contextAccessor = contextAccessor;
             _favoriteService = favoriteService;
         }
 
