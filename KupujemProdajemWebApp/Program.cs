@@ -55,6 +55,7 @@ builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
+builder.Services.AddScoped<AdvertisementService>();
 
 var app = builder.Build();
 

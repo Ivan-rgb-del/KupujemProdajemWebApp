@@ -1,5 +1,6 @@
 ﻿using KupujemProdajemWebApp.Interfaces;
 using KupujemProdajemWebApp.Models;
+using KupujemProdajemWebApp.Services;
 using KupujemProdajemWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,20 +9,22 @@ namespace KupujemProdajemWebApp.Controllers
     public class AdvertisementController : Controller
     {
         private readonly IAdvertisementRepository _advertisementRepository;
+        private readonly AdvertisementService _advertisementService;
         private readonly IPhotoService _photoService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AdvertisementController(IAdvertisementRepository advertisementRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor)
+        public AdvertisementController(IAdvertisementRepository advertisementRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor, AdvertisementService advertisementService)
         {
             _advertisementRepository = advertisementRepository;
             _photoService = photoService;
             _httpContextAccessor = httpContextAccessor;
+            _advertisementService = advertisementService;
         }
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Advertisement> advertisements = await _advertisementRepository.GetAll();
-            return View(advertisements);
+            var ads = await _advertisementService.GetAllAdvertisements();
+            return View(ads);
         }
 
         public async Task<IActionResult> Detail(int id)
