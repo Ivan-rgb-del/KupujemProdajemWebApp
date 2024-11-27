@@ -99,5 +99,15 @@ namespace KupujemProdajemWebApp.Services
                 _advertisementRepository.Update(advertisement);
             }
         }
+
+        public async Task DeleteAdvertisement(int id)
+        {
+            var ad = await _advertisementRepository.GetByIdAsyncNoTracking(id);
+
+            if (ad != null)
+            {
+                _advertisementRepository.Delete(ad);
+            }
+        }
     }
 }

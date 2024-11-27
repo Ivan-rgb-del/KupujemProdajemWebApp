@@ -122,11 +122,7 @@ namespace KupujemProdajemWebApp.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            var ad = await _advertisementRepository.GetByIdAsyncNoTracking(id);
-
-            if (ad == null) return View("Error");
-
-            _advertisementRepository.Delete(ad);
+            _advertisementService.DeleteAdvertisement(id);
             return RedirectToAction("Index");
         }
     }
