@@ -1,6 +1,8 @@
 ﻿using KupujemProdajemWebApp.Interfaces;
 using KupujemProdajemWebApp.Models;
+using KupujemProdajemWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 namespace KupujemProdajemWebApp.Services
 {
@@ -26,6 +28,43 @@ namespace KupujemProdajemWebApp.Services
         {
             _advertisementRepository.IncrementViews(id);
             return await _advertisementRepository.GetByIdAsync(id);
+        }
+
+        public IEnumerable<AdvertisementCategory> GetCategories()
+        {
+            return _advertisementRepository.GetCategories();
+        }
+
+        public IEnumerable<AdvertisementGroup> GetGroups()
+        {
+            return _advertisementRepository.GetGroups();
+        }
+
+        public async Task CreateNewAdvertisement(CreateAdViewModel advertisementVM)
+        {
+            var result = await _photoService.AddPhotoAsync(advertisementVM.ImageURL);
+            var advertisement = new Advertisement
+            {
+                Title = advertisementVM.Title,
+                Price = advertisementVM.Price,
+                IsFixedPrice = advertisementVM.IsFixedPrice,
+                IsReplacement = advertisementVM.IsReplacement,
+                Description = advertisementVM.Description,
+                ImageURL = result.Url.ToString(),
+                IsActive = advertisementVM.IsActive,
+                AdvertisementCondition = advertisementVM.AdvertisementCondition,
+                DeliveryType = advertisementVM.DeliveryType,
+                AdvertisementCategoryId = advertisementVM.AdvertisementCategoryId,
+                AdvertisementGroupId = advertisementVM.AdvertisementGroupId,
+                UserId = advertisementVM.AppUserId,
+                Address = new Address
+                {
+                    City = advertisementVM.Address.City,
+                    Street = advertisementVM.Address.Street
+                }
+            };
+
+            _advertisementRepository.Add(advertisement);
         }
     }
 }

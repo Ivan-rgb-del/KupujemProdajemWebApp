@@ -29,7 +29,7 @@ namespace KupujemProdajemWebApp.Controllers
 
         public async Task<IActionResult> Detail(int id)
         {
-            var advertisement = _advertisementService.GetAdById(id);
+            var advertisement = await _advertisementService.GetAdById(id);
             return View(advertisement);
         }
 
@@ -49,8 +49,8 @@ namespace KupujemProdajemWebApp.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.AdvertisementCategories = _advertisementRepository.GetCategories();
-            ViewBag.AdvertisementGroups = _advertisementRepository.GetGroups();
+            ViewBag.AdvertisementCategories = _advertisementService.GetCategories();
+            ViewBag.AdvertisementGroups = _advertisementService.GetGroups();
 
             var curUserId = _httpContextAccessor.HttpContext.User.GetUserId();
             var createAdViewModel = new CreateAdViewModel
@@ -66,42 +66,8 @@ namespace KupujemProdajemWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                ViewBag.AdvertisementCategories = _advertisementRepository.GetCategories();
-                ViewBag.AdvertisementGroups = _advertisementRepository.GetGroups();
-
-                ViewBag.ValidationErrors = ModelState.Values
-                    .SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage)
-                    .ToList();
-
-                var result = await _photoService.AddPhotoAsync(advertisementVM.ImageURL);
-                var advertisement = new Advertisement
-                {
-                    Title = advertisementVM.Title,
-                    Price = advertisementVM.Price,
-                    IsFixedPrice = advertisementVM.IsFixedPrice,
-                    IsReplacement = advertisementVM.IsReplacement,
-                    Description = advertisementVM.Description,
-                    ImageURL = result.Url.ToString(),
-                    IsActive = advertisementVM.IsActive,
-                    AdvertisementCondition = advertisementVM.AdvertisementCondition,
-                    DeliveryType = advertisementVM.DeliveryType,
-                    AdvertisementCategoryId = advertisementVM.AdvertisementCategoryId,
-                    AdvertisementGroupId = advertisementVM.AdvertisementGroupId,
-                    UserId = advertisementVM.AppUserId,
-                    Address = new Address
-                    {
-                        City = advertisementVM.Address.City,
-                        Street = advertisementVM.Address.Street
-                    }
-                };
-
-                _advertisementRepository.Add(advertisement);
+                await _advertisementService.CreateNewAdvertisement(advertisementVM);
                 return RedirectToAction("Index");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Photo upload failed!");
             }
 
             return View(advertisementVM);
