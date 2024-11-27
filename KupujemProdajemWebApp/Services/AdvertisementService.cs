@@ -66,5 +66,38 @@ namespace KupujemProdajemWebApp.Services
 
             _advertisementRepository.Add(advertisement);
         }
+
+        public async Task EditAdvertisement(int id, EditAdViewModel advertisementVM)
+        {
+            var ad = await _advertisementRepository.GetByIdAsyncNoTracking(id);
+
+            if (ad != null)
+            {
+                await _photoService.DeletePhotoAsync(ad.ImageURL);
+
+                var photoResult = await _photoService.AddPhotoAsync(advertisementVM.Image);
+
+                var advertisement = new Advertisement
+                {
+                    Id = id,
+                    Title = advertisementVM.Title,
+                    Price = advertisementVM.Price,
+                    IsFixedPrice = advertisementVM.IsFixedPrice,
+                    IsReplacement = advertisementVM.IsReplacement,
+                    Description = advertisementVM.Description,
+                    ImageURL = photoResult.Url.ToString(),
+                    IsActive = advertisementVM.IsActive,
+                    AdvertisementCondition = advertisementVM.AdvertisementCondition,
+                    DeliveryType = advertisementVM.DeliveryType,
+                    AdvertisementCategoryId = advertisementVM.AdvertisementCategoryId,
+                    AdvertisementGroupId = advertisementVM.AdvertisementGroupId,
+                    AddressId = advertisementVM.AddressId,
+                    Address = advertisementVM.Address,
+                    UserId = advertisementVM.AppUserId,
+                };
+
+                _advertisementRepository.Update(advertisement);
+            }
+        }
     }
 }

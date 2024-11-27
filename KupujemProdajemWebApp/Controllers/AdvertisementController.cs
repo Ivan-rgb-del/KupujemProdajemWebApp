@@ -75,10 +75,10 @@ namespace KupujemProdajemWebApp.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            ViewBag.AdvertisementCategories = _advertisementRepository.GetCategories();
-            ViewBag.AdvertisementGroups = _advertisementRepository.GetGroups();
+            ViewBag.AdvertisementCategories = _advertisementService.GetCategories();
+            ViewBag.AdvertisementGroups = _advertisementService.GetGroups();
 
-            var advertisement = await _advertisementRepository.GetByIdAsync(id);
+            var advertisement = await _advertisementService.GetAdById(id);
 
             if (advertisement == null) return View("Error");
 
@@ -109,58 +109,14 @@ namespace KupujemProdajemWebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, EditAdViewModel advertisementVM)
         {
-            ViewBag.AdvertisementCategories = _advertisementRepository.GetCategories();
-            ViewBag.AdvertisementGroups = _advertisementRepository.GetGroups();
-
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Failed to edit club!");
                 return View("Edit", advertisementVM);
             }
 
-            var ad = await _advertisementRepository.GetByIdAsyncNoTracking(id);
-
-            if (ad != null)
-            {
-                try
-                {
-                    await _photoService.DeletePhotoAsync(ad.ImageURL);
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", "Could not delete photo!");
-                    return View(advertisementVM);
-                }
-
-                var photoResult = await _photoService.AddPhotoAsync(advertisementVM.Image);
-
-                var advertisement = new Advertisement
-                {
-                    Id = id,
-                    Title = advertisementVM.Title,
-                    Price = advertisementVM.Price,
-                    IsFixedPrice = advertisementVM.IsFixedPrice,
-                    IsReplacement = advertisementVM.IsReplacement,
-                    Description = advertisementVM.Description,
-                    ImageURL = photoResult.Url.ToString(),
-                    IsActive = advertisementVM.IsActive,
-                    AdvertisementCondition = advertisementVM.AdvertisementCondition,
-                    DeliveryType = advertisementVM.DeliveryType,
-                    AdvertisementCategoryId = advertisementVM.AdvertisementCategoryId,
-                    AdvertisementGroupId = advertisementVM.AdvertisementGroupId,
-                    AddressId = advertisementVM.AddressId,
-                    Address = advertisementVM.Address,
-                    UserId = advertisementVM.AppUserId,
-                };
-
-                _advertisementRepository.Update(advertisement);
-
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View(advertisementVM);
-            }
+            await _advertisementService.EditAdvertisement(id, advertisementVM);
+            return RedirectToAction("Index");
         }
 
         [HttpPost, ActionName("Delete")]
