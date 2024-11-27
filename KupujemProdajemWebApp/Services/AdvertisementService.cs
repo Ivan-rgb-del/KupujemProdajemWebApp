@@ -67,6 +67,34 @@ namespace KupujemProdajemWebApp.Services
             _advertisementRepository.Add(advertisement);
         }
 
+        public async Task<EditAdViewModel> GetAdForEdit(int id)
+        {
+            var advertisement = await _advertisementRepository.GetByIdAsync(id);
+
+            if (advertisement == null) return null;
+
+            var curUserId = _contextAccessor.HttpContext.User.GetUserId();
+
+            return new EditAdViewModel
+            {
+                Title = advertisement.Title,
+                Price = advertisement.Price,
+                IsFixedPrice = advertisement.IsFixedPrice,
+                IsReplacement = advertisement.IsReplacement,
+                Description = advertisement.Description,
+                URL = advertisement.ImageURL,
+                CreatedOn = advertisement.CreatedOn,
+                IsActive = advertisement.IsActive,
+                AdvertisementCondition = advertisement.AdvertisementCondition,
+                DeliveryType = advertisement.DeliveryType,
+                AdvertisementCategoryId = advertisement.AdvertisementCategoryId,
+                AdvertisementGroupId = advertisement.AdvertisementGroupId,
+                AddressId = advertisement.AddressId,
+                Address = advertisement.Address,
+                AppUserId = curUserId,
+            };
+        }
+
         public async Task EditAdvertisement(int id, EditAdViewModel advertisementVM)
         {
             var ad = await _advertisementRepository.GetByIdAsyncNoTracking(id);

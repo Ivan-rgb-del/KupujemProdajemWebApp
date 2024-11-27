@@ -78,30 +78,9 @@ namespace KupujemProdajemWebApp.Controllers
             ViewBag.AdvertisementCategories = _advertisementService.GetCategories();
             ViewBag.AdvertisementGroups = _advertisementService.GetGroups();
 
-            var advertisement = await _advertisementService.GetAdById(id);
+            var advertisementVM = await _advertisementService.GetAdForEdit(id);
 
-            if (advertisement == null) return View("Error");
-
-            var curUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-
-            var advertisementVM = new EditAdViewModel
-            {
-                Title = advertisement.Title,
-                Price = advertisement.Price,
-                IsFixedPrice = advertisement.IsFixedPrice,
-                IsReplacement = advertisement.IsReplacement,
-                Description = advertisement.Description,
-                URL = advertisement.ImageURL,
-                CreatedOn = advertisement.CreatedOn,
-                IsActive = advertisement.IsActive,
-                AdvertisementCondition = advertisement.AdvertisementCondition,
-                DeliveryType = advertisement.DeliveryType,
-                AdvertisementCategoryId = advertisement.AdvertisementCategoryId,
-                AdvertisementGroupId = advertisement.AdvertisementGroupId,
-                AddressId = advertisement.AddressId,
-                Address = advertisement.Address,
-                AppUserId = curUserId,
-            };
+            if (advertisementVM == null) return View("Error");
 
             return View(advertisementVM);
         }
