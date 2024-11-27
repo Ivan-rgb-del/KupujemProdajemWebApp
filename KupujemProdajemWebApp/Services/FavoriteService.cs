@@ -1,4 +1,5 @@
 ﻿using KupujemProdajemWebApp.Interfaces;
+using KupujemProdajemWebApp.Models;
 using KupujemProdajemWebApp.ViewModels;
 
 namespace KupujemProdajemWebApp.Services
@@ -23,6 +24,19 @@ namespace KupujemProdajemWebApp.Services
             {
                 FavoriteAds = userFavoriteAds
             };
+        }
+
+        public async Task<bool> SaveAdToFavorite(int adId)
+        {
+            var user = _contextAccessor.HttpContext.User.GetUserId();
+
+            var favorite = new Favorite
+            {
+                UserId = user,
+                AdvertisementId = adId,
+            };
+
+            return await _favoriteRepository.SaveToFavorites(favorite);
         }
     }
 }

@@ -24,15 +24,7 @@ namespace KupujemProdajemWebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveToFavorites(int adId)
         {
-            var user = _contextAccessor.HttpContext.User.GetUserId();
-
-            var favorite = new Favorite
-            {
-                UserId = user,
-                AdvertisementId = adId,
-            };
-
-            bool isAdded = await _favoriteRepository.SaveToFavorites(favorite);
+            bool isAdded = await _favoriteService.SaveAdToFavorite(adId);
 
             if (!isAdded)
             {
