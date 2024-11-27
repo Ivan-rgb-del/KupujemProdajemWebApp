@@ -10,15 +10,11 @@ namespace KupujemProdajemWebApp.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly ApplicationDbContext _context;
-        private readonly ITokenService _tokenService;
 
-        public AccountService(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationDbContext context, ITokenService tokenService)
+        public AccountService(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _context = context;
-            _tokenService = tokenService;
         }
 
         public async Task<IdentityResult> RegisterNewUser(RegisterViewModel registerVM)
