@@ -46,9 +46,7 @@ namespace KupujemProdajemWebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> RemoveSavedAdFromFavorite(int adId)
         {
-            var userId = _contextAccessor.HttpContext.User.GetUserId();
-
-            var isDeleted = await _favoriteRepository.RemoveFromFavorites(userId, adId);
+            var isDeleted = await _favoriteService.RemovedSavedAd(adId);
 
             if (isDeleted)
             {

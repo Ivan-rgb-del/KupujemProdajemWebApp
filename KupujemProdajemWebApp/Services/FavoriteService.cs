@@ -38,5 +38,12 @@ namespace KupujemProdajemWebApp.Services
 
             return await _favoriteRepository.SaveToFavorites(favorite);
         }
+
+        public async Task<bool> RemovedSavedAd(int adId)
+        {
+            var userId = _contextAccessor.HttpContext.User.GetUserId();
+
+            return await _favoriteRepository.RemoveFromFavorites(userId, adId);
+        }
     }
 }
