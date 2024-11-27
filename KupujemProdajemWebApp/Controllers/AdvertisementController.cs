@@ -10,13 +10,11 @@ namespace KupujemProdajemWebApp.Controllers
     {
         private readonly IAdvertisementRepository _advertisementRepository;
         private readonly AdvertisementService _advertisementService;
-        private readonly IPhotoService _photoService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AdvertisementController(IAdvertisementRepository advertisementRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor, AdvertisementService advertisementService)
+        public AdvertisementController(IAdvertisementRepository advertisementRepository, IHttpContextAccessor httpContextAccessor, AdvertisementService advertisementService)
         {
             _advertisementRepository = advertisementRepository;
-            _photoService = photoService;
             _httpContextAccessor = httpContextAccessor;
             _advertisementService = advertisementService;
         }

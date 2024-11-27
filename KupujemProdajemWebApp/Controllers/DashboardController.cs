@@ -1,5 +1,6 @@
 ﻿using KupujemProdajemWebApp.Data;
 using KupujemProdajemWebApp.Interfaces;
+using KupujemProdajemWebApp.Services;
 using KupujemProdajemWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,20 +8,16 @@ namespace KupujemProdajemWebApp.Controllers
 {
     public class DashboardController : Controller
     {
-        private readonly IDashboardRepository _dashboardRepository;
+        private readonly DashboardService _dashboardService;
 
-        public DashboardController(IDashboardRepository dashboardRepository)
+        public DashboardController(DashboardService dashboardService)
         {
-            _dashboardRepository = dashboardRepository;
+            _dashboardService = dashboardService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var userAds = await _dashboardRepository.GetAllUserAds();
-            var dashboardViewModel = new DashboardViewModel
-            {
-                Advertisements = userAds,
-            };
+            var dashboardViewModel = await _dashboardService.GetAllCreatedUserAds();
             return View(dashboardViewModel);
         }
     }

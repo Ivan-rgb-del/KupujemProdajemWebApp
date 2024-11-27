@@ -57,6 +57,7 @@ builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
 builder.Services.AddScoped<AdvertisementService>();
 builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<DashboardService>();
 
 var app = builder.Build();
 
