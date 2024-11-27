@@ -48,5 +48,17 @@ namespace KupujemProdajemWebApp.Services
 
             return result;
         }
+
+        public async Task<User> LoginUser(LoginViewModel loginVM)
+        {
+            var appUser = await _userManager.FindByEmailAsync(loginVM.EmailAddress);
+
+            if (appUser == null) return null;
+
+            await _signInManager.SignOutAsync();
+            var result = await _signInManager.PasswordSignInAsync(appUser, loginVM.Password, false, false);
+
+            return result.Succeeded ? appUser : null;
+        }
     }
 }
