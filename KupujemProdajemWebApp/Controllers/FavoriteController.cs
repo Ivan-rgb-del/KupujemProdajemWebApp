@@ -1,6 +1,7 @@
 ﻿using KupujemProdajemWebApp.Interfaces;
 using KupujemProdajemWebApp.Models;
 using KupujemProdajemWebApp.Repository;
+using KupujemProdajemWebApp.Services;
 using KupujemProdajemWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.WebSockets;
@@ -11,10 +12,13 @@ namespace KupujemProdajemWebApp.Controllers
     {
         private readonly IFavoriteRepository _favoriteRepository;
         private readonly IHttpContextAccessor _contextAccessor;
-        public FavoriteController(IFavoriteRepository favoriteRepository, IHttpContextAccessor contextAccessor)
+        private readonly FavoriteService _favoriteService;
+
+        public FavoriteController(IFavoriteRepository favoriteRepository, IHttpContextAccessor contextAccessor, FavoriteService favoriteService)
         {
             _favoriteRepository = favoriteRepository;
             _contextAccessor = contextAccessor;
+            _favoriteService = favoriteService;
         }
 
         [HttpPost]
@@ -43,14 +47,7 @@ namespace KupujemProdajemWebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var userId = _contextAccessor.HttpContext.User.GetUserId();
-            var userFavoriteAds = await _favoriteRepository.GetAllFavoritesByUserId(userId);
-
-            var savedAdsVM = new SavedAdsViewModel
-            {
-                FavoriteAds = userFavoriteAds
-            };
-
+            var savedAdsVM = await _favoriteService.GetAllUserSavedAds();
             return View(savedAdsVM);
         }
 

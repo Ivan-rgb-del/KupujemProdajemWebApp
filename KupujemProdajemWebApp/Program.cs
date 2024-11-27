@@ -58,6 +58,7 @@ builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
 builder.Services.AddScoped<AdvertisementService>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<DashboardService>();
+builder.Services.AddScoped<FavoriteService>();
 
 var app = builder.Build();
 
