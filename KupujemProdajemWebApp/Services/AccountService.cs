@@ -65,5 +65,17 @@ namespace KupujemProdajemWebApp.Services
         {
             await _signInManager.SignOutAsync();
         }
+
+        public async Task<bool> ResetPassword(ResetPasswordViewModel resetPasswordViewModel)
+        {
+            var user = await _userManager.FindByEmailAsync(resetPasswordViewModel.Email);
+
+            if (user == null) return false;
+
+            var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _userManager.ResetPasswordAsync(user, resetToken, resetPasswordViewModel.NewPassword);
+
+            return result.Succeeded;
+        }
     }
 }

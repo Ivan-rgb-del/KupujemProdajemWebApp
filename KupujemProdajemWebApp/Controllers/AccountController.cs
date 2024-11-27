@@ -88,22 +88,14 @@ namespace KupujemProdajemWebApp.Controllers
                 return View(resetPasswordViewModel);
             }
 
-            var user = await _userManager.FindByEmailAsync(resetPasswordViewModel.Email);
+            var result = await _accountService.ResetPassword(resetPasswordViewModel);
 
-            if (user == null)
-            {
-                TempData["Error"] = "This user does not exist!";
-                return View(resetPasswordViewModel);
-            }
-
-            var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var result = await _userManager.ResetPasswordAsync(user, resetToken, resetPasswordViewModel.NewPassword);
-
-            if (result.Succeeded)
+            if (result)
             {
                 return RedirectToAction("Login", "Account");
             }
 
+            TempData["Error"] = "Password reset failed!";
             return View(resetPasswordViewModel);
         }
     }
