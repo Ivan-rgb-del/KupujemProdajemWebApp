@@ -21,5 +21,11 @@ namespace KupujemProdajemWebApp.Services
         {
             return await _advertisementRepository.GetAll();
         }
+
+        public async Task<Advertisement> GetAdById(int id)
+        {
+            _advertisementRepository.IncrementViews(id);
+            return await _advertisementRepository.GetByIdAsync(id);
+        }
     }
 }
