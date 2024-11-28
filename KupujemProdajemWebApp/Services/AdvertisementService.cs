@@ -137,5 +137,10 @@ namespace KupujemProdajemWebApp.Services
                 _advertisementRepository.Delete(ad);
             }
         }
+
+        public async Task<IEnumerable<Advertisement>> FilterAds(string? city, int? categoryId, int? groupId, bool IsFixedPrice, bool IsReplacement, double minPrice, double maxPrice)
+        {
+            return await _advertisementRepository.FilterAds(city, categoryId, groupId, IsFixedPrice, IsReplacement, minPrice, maxPrice);
+        }
     }
 }

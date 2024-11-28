@@ -33,14 +33,14 @@ namespace KupujemProdajemWebApp.Controllers
 
         public IActionResult Filter()
         {
-            ViewBag.AdvertisementCategories = _advertisementRepository.GetCategories();
-            ViewBag.AdvertisementGroups = _advertisementRepository.GetGroups();
+            ViewBag.AdvertisementCategories = _advertisementService.GetCategories();
+            ViewBag.AdvertisementGroups = _advertisementService.GetGroups();
             return View();
         }
 
         public async Task<IActionResult> FilterAds(string? city, int? categoryId, int? groupId, bool IsFixedPrice, bool IsReplacement, double minPrice, double maxPrice)
         {
-            var ads = await _advertisementRepository.FilterAds(city, categoryId, groupId, IsFixedPrice, IsReplacement, minPrice, maxPrice);
+            var ads = await _advertisementService.FilterAds(city, categoryId, groupId, IsFixedPrice, IsReplacement, minPrice, maxPrice);
 
             return View("Index", ads);
         }
