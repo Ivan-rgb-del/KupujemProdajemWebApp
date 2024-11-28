@@ -66,10 +66,10 @@ namespace KupujemProdajemWebApp.Repository
         {
             return await _context.Advertisements
                 .Where(a => city == null || a.Address.City.Contains(city))
-                .Where(a => a.AdvertisementCategoryId == categoryId)
-                .Where(a => a.AdvertisementGroupId == groupId)
-                .Where(a => a.IsFixedPrice == IsFixedPrice)
-                .Where(a => a.IsReplacement == IsReplacement)
+                .Where(a => categoryId == null || a.AdvertisementCategoryId == categoryId)
+                .Where(a => groupId == null || a.AdvertisementGroupId == groupId)
+                .Where(a => IsFixedPrice == false || a.IsFixedPrice == IsFixedPrice)
+                .Where(a => IsReplacement == false || a.IsReplacement == IsReplacement)
                 .Where(a => a.Price >= minPrice && a.Price <= maxPrice)
                 .ToListAsync();
         }
