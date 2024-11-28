@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
 const TestAPI = () => {
-    const [data, setData] = useState(null);
+    const [ads, setAds] = useState([]);
 
     useEffect(() => {
-        fetch('/api/test')
+        fetch('http://localhost:5000/api/advertisementapi')
             .then((response) => response.json())
-            .then((data) => setData(data))
+            .then((data) => console.log(data))
             .catch((error) => console.error('Error:', error));
     }, []);
 
     return (
-        <div>
+        <main>
             <h1>Test API Response</h1>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
-        </div>
+        </main>
     );
 };
 
