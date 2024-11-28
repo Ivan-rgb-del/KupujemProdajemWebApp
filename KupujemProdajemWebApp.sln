@@ -5,6 +5,13 @@ VisualStudioVersion = 17.11.35017.193
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KupujemProdajemWebApp", "KupujemProdajemWebApp\KupujemProdajemWebApp.csproj", "{04653A70-8AE1-4E2B-A82B-A0FE7F883E69}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FCBD8E9A-AF44-41ED-B880-3616D4C8B697}"
+	ProjectSection(SolutionItems) = preProject
+		frontend\src\App.js = frontend\src\App.js
+		frontend\package.json = frontend\package.json
+		frontend\src\TestAPI.js = frontend\src\TestAPI.js
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
