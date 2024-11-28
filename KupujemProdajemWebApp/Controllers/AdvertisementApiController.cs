@@ -1,11 +1,10 @@
 ﻿using KupujemProdajemWebApp.Models;
 using KupujemProdajemWebApp.Services;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KupujemProdajemWebApp.api
+namespace KupujemProdajemWebApp.Controllers
 {
-    [Microsoft.AspNetCore.Components.Route("api/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AdvertisementApiController : ControllerBase
     {
