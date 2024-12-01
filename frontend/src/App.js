@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar';
 import WelcomePage from './pages/WelcomePage';
 import AdDetailPage from './pages/AdDetailPage';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     <Route path="/" element={<WelcomePage />} />
                     <Route path="/advertisements" element={<AdvertisementPage />} />
                     <Route path="/advertisements/:adId" element={<AdDetailPage />} />
+                    <Route path="/register" element={<RegisterPage /> } />
                 </Routes>
             </div>
         </Router>
