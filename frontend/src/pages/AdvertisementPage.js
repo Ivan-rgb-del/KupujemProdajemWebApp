@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchAdvertisements } from '../services/AdvertisementService';
+import { Link } from 'react-router-dom';
 
 const AdvertisementPage = () => {
     const [ads, setAds] = useState([]);
@@ -50,6 +51,14 @@ const AdvertisementPage = () => {
                                         <span>Viewers: {ad.viewers || 0}</span>
                                     </div>
                                 </div>
+
+                                <Link
+                                    to={`/advertisements/${ad.id}`}
+                                    className="mt-2 inline-block text-blue-500 hover:underline"
+                                >
+                                    More
+                                </Link>
+
                                 <div className="mt-4 flex items-center gap-2">
                                     <button className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition">
                                         Add to Favorites
