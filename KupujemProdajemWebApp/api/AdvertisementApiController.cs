@@ -21,5 +21,18 @@ namespace KupujemProdajemWebApp.api
             var ads = await _advertisementService.GetAllAdvertisements();
             return Ok(ads);
         }
+
+        [HttpGet("adId={adId}")]
+        public async Task<ActionResult<Advertisement>> GetAd(int adId)
+        {
+            var ad = await _advertisementService.GetAdById(adId);
+
+            if (ad == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(ad);
+        }
     }
 }

@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KupujemProdajemWebApp", "Ku
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FCBD8E9A-AF44-41ED-B880-3616D4C8B697}"
 	ProjectSection(SolutionItems) = preProject
+		frontend\src\services\AdDetailService.js = frontend\src\services\AdDetailService.js
 		frontend\src\pages\AdvertisementPage.js = frontend\src\pages\AdvertisementPage.js
 		frontend\src\services\AdvertisementService.js = frontend\src\services\AdvertisementService.js
 		frontend\src\App.js = frontend\src\App.js
