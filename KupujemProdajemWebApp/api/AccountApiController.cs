@@ -4,6 +4,7 @@ using KupujemProdajemWebApp.Services;
 using KupujemProdajemWebApp.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace KupujemProdajemWebApp.api
 {
@@ -14,12 +15,14 @@ namespace KupujemProdajemWebApp.api
         private readonly AccountService _accountService;
         private readonly UserManager<User> _userManager;
         private readonly ITokenService _tokenService;
+        private readonly SignInManager<User> _signInManager;
 
-        public AccountApiController(AccountService accountService, UserManager<User> userManager, ITokenService tokenService)
+        public AccountApiController(AccountService accountService, UserManager<User> userManager, ITokenService tokenService, SignInManager<User> signInManager)
         {
             _accountService = accountService;
             _userManager = userManager;
             _tokenService = tokenService;
+            _signInManager = signInManager;
         }
 
         [HttpPost("register")]
@@ -72,6 +75,33 @@ namespace KupujemProdajemWebApp.api
             } catch(Exception ex)
             {
                 return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginViewModel loginVM)
+        {
+            try
+            {
+                if (!ModelState.IsValid) return BadRequest(ModelState);
+
+                var user = await _userManager.FindByEmailAsync(loginVM.EmailAddress);
+                if (user == null) return Unauthorized("Invalid Email or Password!");
+
+                var result = await _signInManager.CheckPasswordSignInAsync(user, loginVM.Password, false);
+                if (!result.Succeeded) return Unauthorized("Invalid Email or Password!");
+
+                return Ok(
+                    new NewUserViewModel
+                    {
+                        UserName = user.UserName,
+                        Email = user.Email,
+                        Token = _tokenService.CreateToken(user)
+                    }
+                );
+            } catch(Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
     }
