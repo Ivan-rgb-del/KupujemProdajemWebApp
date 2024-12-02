@@ -1,4 +1,5 @@
-﻿using KupujemProdajemWebApp.Models;
+﻿using KupujemProdajemWebApp.Interfaces;
+using KupujemProdajemWebApp.Models;
 using KupujemProdajemWebApp.Services;
 using KupujemProdajemWebApp.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -12,11 +13,13 @@ namespace KupujemProdajemWebApp.api
     {
         private readonly AccountService _accountService;
         private readonly UserManager<User> _userManager;
+        private readonly ITokenService _tokenService;
 
-        public AccountApiController(AccountService accountService, UserManager<User> userManager)
+        public AccountApiController(AccountService accountService, UserManager<User> userManager, ITokenService tokenService)
         {
             _accountService = accountService;
             _userManager = userManager;
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
@@ -50,7 +53,14 @@ namespace KupujemProdajemWebApp.api
                     var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
                     if (roleResult.Succeeded)
                     {
-                        return Ok(new { message = "User created!" });
+                        return Ok(
+                            new NewUserViewModel
+                            {
+                                UserName = appUser.UserName,
+                                Email = appUser.Email,
+                                Token = _tokenService.CreateToken(appUser)
+                            }
+                        );
                     } else
                     {
                         return StatusCode(500, roleResult.Errors);
