@@ -26,6 +26,12 @@ namespace KupujemProdajemWebApp.api
             {
                 if (!ModelState.IsValid) return BadRequest(ModelState);
 
+                var existingUser = await _userManager.FindByEmailAsync(registerVM.EmailAddress);
+                if (existingUser != null)
+                {
+                    return BadRequest("User with this email address already exists.");
+                }
+
                 var appUser = new User
                 {
                     UserName = registerVM.EmailAddress,
