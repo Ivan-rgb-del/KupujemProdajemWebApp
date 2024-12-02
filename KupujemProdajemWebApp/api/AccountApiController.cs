@@ -50,7 +50,7 @@ namespace KupujemProdajemWebApp.api
                     var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
                     if (roleResult.Succeeded)
                     {
-                        return Ok("User created!");
+                        return Ok(new { message = "User created!" });
                     } else
                     {
                         return StatusCode(500, roleResult.Errors);
