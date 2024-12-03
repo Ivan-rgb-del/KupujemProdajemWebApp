@@ -1,13 +1,26 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+    const isLoggedIn = localStorage.getItem("token");
+    const navigate = useNavigate();
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("email");
+
+        navigate('/');
+    }
+
     return (
         <nav className="bg-blue-500 p-4 text-white">
-            <div className="container mx-auto flex justify-between">
+            <div className="flex justify-between">
                 <Link to="/" className="text-xl font-bold">
                     KupujemProdajem
                 </Link>
+
                 <div>
                     <Link to="/" className="mr-4 hover:underline">
                         Home
@@ -15,12 +28,21 @@ const Navbar = () => {
                     <Link to="/advertisements" className="mr-4 hover:underline">
                         Advertisements
                     </Link>
-                    <Link to="/register" className="mr-4 hover:underline">
-                        Register
-                    </Link>
-                    <Link to="/login" className="mr-4 hover:underline">
-                        Login
-                    </Link>
+
+                    {isLoggedIn ? (
+                        <button onClick={handleLogout} className="mr-4 hover:underline">
+                            Logout
+                        </button>
+                    ) : (
+                        <>
+                            <Link to="/register" className="mr-4 hover:underline">
+                                Register
+                            </Link>
+                            <Link to="/login" className="hover:underline">
+                                Login
+                            </Link>
+                        </>
+                    )}
                 </div>
             </div>
         </nav>
