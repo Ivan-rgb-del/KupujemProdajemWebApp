@@ -1,6 +1,6 @@
 ﻿import React, { useState } from 'react';
 import { loginUser } from '../services/LoginService';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const LoginPage = () => {
     const [emailAddress, setEmailAddress] = useState("");
@@ -47,6 +47,15 @@ const LoginPage = () => {
                             required
                         />
                     </div>
+
+                    <div className="mb-6 mt-4 text-center">
+                        <Link
+                            to="/forgot-password"
+                            className="text-blue-500 hover:underline">
+                            Forgot password?
+                        </Link>
+                    </div>
+
                     <button
                         type="submit"
                         className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"

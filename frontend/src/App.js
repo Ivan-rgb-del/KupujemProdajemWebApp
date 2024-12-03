@@ -6,6 +6,7 @@ import WelcomePage from './pages/WelcomePage';
 import AdDetailPage from './pages/AdDetailPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     <Route path="/advertisements/:adId" element={<AdDetailPage />} />
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/login" element={<LoginPage />} />
+                    <Route path="/forgot-password" element={<ResetPasswordPage />} />
                 </Routes>
             </div>
         </Router>
