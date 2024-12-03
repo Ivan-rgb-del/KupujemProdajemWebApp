@@ -108,21 +108,21 @@ namespace KupujemProdajemWebApp.api
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword([FromBody] ResetPasswordViewModel resetPasswordVM)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            var user = await _userManager.FindByEmailAsync(resetPasswordVM.Email);
-            if (user == null) return Unauthorized("This user does not exist!");
-
-            var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
-
-            var result = await _userManager.ResetPasswordAsync(user, resetToken, resetPasswordVM.NewPassword);
-
-            if (result.Succeeded)
+            try
             {
-                return Ok("Password reset successful.");
-            } else
-            {   
-                return BadRequest("Error resetting password.");
+                if (!ModelState.IsValid) return BadRequest(ModelState);
+
+                var user = await _userManager.FindByEmailAsync(resetPasswordVM.Email);
+                if (user == null) return Unauthorized("This user does not exist!");
+
+                var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                var result = await _userManager.ResetPasswordAsync(user, resetToken, resetPasswordVM.NewPassword);
+
+                return Ok(result);
+            } catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
     }
