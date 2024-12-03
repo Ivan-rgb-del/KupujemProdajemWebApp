@@ -1,10 +1,12 @@
 ﻿import React, { useState } from 'react';
 import { loginUser } from '../services/LoginService';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
     const [emailAddress, setEmailAddress] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -13,6 +15,7 @@ const LoginPage = () => {
             const response = await loginUser({ emailAddress, password });
             localStorage.setItem("token", response.token);
             localStorage.setItem("email", response.email);
+            navigate('/advertisements');
         } catch (error) {
             setError(error.message);
         }
