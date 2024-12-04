@@ -40,9 +40,9 @@ namespace KupujemProdajemWebApp.Services
             return _advertisementRepository.GetGroups();
         }
 
-        public async Task CreateNewAdvertisement(CreateAdViewModel advertisementVM)
+        public async Task<Advertisement> CreateNewAdvertisement(CreateAdViewModel advertisementVM)
         {
-            var result = await _photoService.AddPhotoAsync(advertisementVM.ImageURL);
+            //var result = await _photoService.AddPhotoAsync(advertisementVM.ImageURL);
             var advertisement = new Advertisement
             {
                 Title = advertisementVM.Title,
@@ -50,7 +50,7 @@ namespace KupujemProdajemWebApp.Services
                 IsFixedPrice = advertisementVM.IsFixedPrice,
                 IsReplacement = advertisementVM.IsReplacement,
                 Description = advertisementVM.Description,
-                ImageURL = result.Url.ToString(),
+                ImageURL = advertisementVM.ImageURL,
                 IsActive = advertisementVM.IsActive,
                 AdvertisementCondition = advertisementVM.AdvertisementCondition,
                 DeliveryType = advertisementVM.DeliveryType,
@@ -65,6 +65,7 @@ namespace KupujemProdajemWebApp.Services
             };
 
             _advertisementRepository.Add(advertisement);
+            return advertisement;
         }
 
         public async Task<EditAdViewModel> GetAdForEdit(int id)

@@ -11,7 +11,7 @@ namespace KupujemProdajemWebApp.ViewModels
         public bool IsFixedPrice { get; set; }
         public bool IsReplacement { get; set; }
         public string Description { get; set; }
-        public IFormFile ImageURL { get; set; }
+        public string ImageURL { get; set; }
         public DateTime CreatedOn { get; set; }
         public bool IsActive { get; set; }
         public AdvertisementCondition AdvertisementCondition { get; set; }

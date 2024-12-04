@@ -1,5 +1,6 @@
 ﻿using KupujemProdajemWebApp.Models;
 using KupujemProdajemWebApp.Services;
+using KupujemProdajemWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KupujemProdajemWebApp.api
@@ -9,10 +10,12 @@ namespace KupujemProdajemWebApp.api
     public class AdvertisementApiController : ControllerBase
     {
         private readonly AdvertisementService _advertisementService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AdvertisementApiController(AdvertisementService advertisementService)
+        public AdvertisementApiController(AdvertisementService advertisementService, IHttpContextAccessor httpContextAccessor)
         {
             _advertisementService = advertisementService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpGet]
@@ -33,6 +36,19 @@ namespace KupujemProdajemWebApp.api
             }
 
             return Ok(ad);
+        }
+
+        [HttpPost("create")]
+        public async Task<IActionResult> Create([FromBody] CreateAdViewModel createAdVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { message = "Validation errors", errors = ModelState });
+            }
+
+            var result = await _advertisementService.CreateNewAdvertisement(createAdVM);
+
+            return Ok(result);
         }
     }
 }
