@@ -10,6 +10,7 @@ const Navbar = () => {
 
         localStorage.removeItem("token");
         localStorage.removeItem("email");
+        localStorage.removeItem("userId");
 
         navigate('/');
     }

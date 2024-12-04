@@ -94,6 +94,7 @@ namespace KupujemProdajemWebApp.api
                 return Ok(
                     new NewUserViewModel
                     {
+                        userId = user.Id,
                         UserName = user.UserName,
                         Email = user.Email,
                         Token = _tokenService.CreateToken(user)

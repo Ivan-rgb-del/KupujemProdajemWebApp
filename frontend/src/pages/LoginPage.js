@@ -15,6 +15,7 @@ const LoginPage = () => {
             const response = await loginUser({ emailAddress, password });
             localStorage.setItem("token", response.token);
             localStorage.setItem("email", response.email);
+            localStorage.setItem("userId", response.userId);
             navigate('/advertisements');
         } catch (error) {
             setError(error.message);
