@@ -30,9 +30,14 @@ const Navbar = () => {
                     </Link>
 
                     {isLoggedIn ? (
-                        <button onClick={handleLogout} className="mr-4 hover:underline">
-                            Logout
-                        </button>
+                        <>
+                            <Link to="/create" className="mr-4 hover:underline">
+                                    Create new Ad
+                                </Link>
+                            <button onClick={handleLogout} className="mr-4 hover:underline">
+                                Logout
+                            </button>
+                        </>
                     ) : (
                         <>
                             <Link to="/register" className="mr-4 hover:underline">
