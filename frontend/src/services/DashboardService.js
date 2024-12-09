@@ -23,7 +23,7 @@ export const dashboard = async () => {
         }
 
         const data = await response.json();
-        return data.advertisements;
+        return data;
     }
     catch (error) {
         throw new Error("Error fetching ads: ", error);
