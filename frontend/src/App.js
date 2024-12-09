@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import CreateAdPage from './pages/CreateAdPage';
+import DashboardPage from './pages/DashboardPage';
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/forgot-password" element={<ResetPasswordPage />} />
                     <Route path="/create" element={<CreateAdPage />} />
+                    <Route path="/dashboard" element={<DashboardPage />} />
                 </Routes>
             </div>
         </Router>
