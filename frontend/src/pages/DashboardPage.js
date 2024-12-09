@@ -8,7 +8,7 @@ const DashboardPage = () => {
     useEffect(() => {
         const fetchAds = async () => {
             try {
-                const token = localStorage.getItem("jwt");
+                const token = localStorage.getItem("token");
                 if (!token) {
                     throw new Error("User is not authenticated!");
                 }

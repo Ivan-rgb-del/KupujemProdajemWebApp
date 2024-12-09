@@ -4,6 +4,6 @@ namespace KupujemProdajemWebApp.Interfaces
 {
     public interface IDashboardRepository
     {
-        Task<List<Advertisement>> GetAllUserAds();
+        Task<List<Advertisement>> GetAllUserAds(string userId);
     }
 }

@@ -1,11 +1,18 @@
 import React from 'react';
 
 export const dashboard = async () => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        console.error("User is not authenticated!");
+        return;
+    }
+
     try {
         const response = await fetch('https://localhost:7084/api/dashboardapi/dashboard', {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
         });

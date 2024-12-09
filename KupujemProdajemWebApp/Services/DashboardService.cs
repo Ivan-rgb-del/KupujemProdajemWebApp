@@ -1,5 +1,7 @@
 ﻿using KupujemProdajemWebApp.Interfaces;
+using KupujemProdajemWebApp.Models;
 using KupujemProdajemWebApp.ViewModels;
+using System.Security.Claims;
 
 namespace KupujemProdajemWebApp.Services
 {
@@ -12,14 +14,9 @@ namespace KupujemProdajemWebApp.Services
             _dashboardRepository = dashboardRepository;
         }
 
-        public async Task<DashboardViewModel> GetAllCreatedUserAds()
+        public async Task<List<Advertisement>> GetAllCreatedUserAds(string userId)
         {
-            var userAds = await _dashboardRepository.GetAllUserAds();
-            
-            return new DashboardViewModel
-            {
-                Advertisements = userAds,
-            };
+            return await _dashboardRepository.GetAllUserAds(userId);
         }
     }
 }

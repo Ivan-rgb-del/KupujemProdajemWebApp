@@ -15,9 +15,9 @@ namespace KupujemProdajemWebApp.Controllers
             _dashboardService = dashboardService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string userId)
         {
-            var dashboardViewModel = await _dashboardService.GetAllCreatedUserAds();
+            var dashboardViewModel = await _dashboardService.GetAllCreatedUserAds(userId);
             return View(dashboardViewModel);
         }
     }
