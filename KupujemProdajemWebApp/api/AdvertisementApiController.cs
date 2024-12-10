@@ -57,7 +57,7 @@ namespace KupujemProdajemWebApp.api
             await _advertisementService.DeleteAdvertisement(adId);
         }
 
-        [HttpPut("update={adId}")]
+        [HttpPut("update/{adId}")]
         public async Task<IActionResult> Edit([FromBody] EditAdViewModel editAdVM, int adId)
         {
             if (!ModelState.IsValid)
