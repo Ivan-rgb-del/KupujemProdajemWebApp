@@ -56,5 +56,17 @@ namespace KupujemProdajemWebApp.api
         {
             await _advertisementService.DeleteAdvertisement(adId);
         }
+
+        [HttpPut("update={adId}")]
+        public async Task<IActionResult> Edit([FromBody] EditAdViewModel editAdVM, int adId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { message = "Validation errors", errors = ModelState });
+            }
+
+            var result = await _advertisementService.EditAdvertisement(adId, editAdVM);
+            return Ok(result);
+        }
     }
 }
