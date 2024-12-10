@@ -50,5 +50,11 @@ namespace KupujemProdajemWebApp.api
 
             return Ok(result);
         }
+
+        [HttpDelete("delete={adId}")]
+        public async Task Delete(int adId)
+        {
+            await _advertisementService.DeleteAdvertisement(adId);
+        }
     }
 }
