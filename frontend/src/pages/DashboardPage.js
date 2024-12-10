@@ -1,5 +1,6 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { dashboard } from '../services/DashboardService';
+import { deleteAd } from '../services/DeleteAdService';
 
 const DashboardPage = () => {
     const [ads, setAds] = useState([]);
@@ -17,6 +18,16 @@ const DashboardPage = () => {
 
         fetchAds();
     }, []);
+
+    const handleDelete = async (adId) => {
+        try {
+            await deleteAd(adId);
+            setAds((prevAds) => prevAds.filter((ad) => ad.id !== adId));
+            alert("Oglas je uspešno obrisan!");
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
 
     return (
         <div className="bg-gray-100 min-h-screen py-8">
@@ -61,7 +72,11 @@ const DashboardPage = () => {
                                         <button className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition">
                                             Edit
                                         </button>
-                                        <button className="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-red-600 transition">
+
+                                        <button
+                                            className="bg-red-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-red-600 transition"
+                                            onClick={() => handleDelete(ad.id)}
+                                        >
                                             Delete
                                         </button>
                                     </div>

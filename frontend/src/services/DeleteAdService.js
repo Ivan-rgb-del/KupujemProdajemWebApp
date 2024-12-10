@@ -11,8 +11,7 @@ export const deleteAd = async (adId) => {
             throw new Error(errorData.message);
         }
 
-        const data = await response.json();
-        return data;
+        return true;
     }
     catch (error) {
         console.error(error.message);
