@@ -120,7 +120,7 @@ namespace KupujemProdajemWebApp.Services
                 IsReplacement = advertisementVM.IsReplacement,
                 Description = advertisementVM.Description,
                 ImageURL = advertisementVM.Image,
-                Viewers = advertisementVM.Viewers,
+                Viewers = ad.Viewers,
                 IsActive = advertisementVM.IsActive,
                 AdvertisementCondition = advertisementVM.AdvertisementCondition,
                 DeliveryType = advertisementVM.DeliveryType,
