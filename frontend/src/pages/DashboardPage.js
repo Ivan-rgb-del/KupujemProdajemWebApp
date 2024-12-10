@@ -1,4 +1,5 @@
 ﻿import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { dashboard } from '../services/DashboardService';
 import { deleteAd } from '../services/DeleteAdService';
 
@@ -72,6 +73,13 @@ const DashboardPage = () => {
                                         <button className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition">
                                             Edit
                                         </button>
+
+                                        <Link
+                                            to={`/update/${ad.id}`}
+                                            className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition"
+                                        >
+                                            Edit
+                                        </Link>
 
                                         <button
                                             className="bg-red-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-red-600 transition"

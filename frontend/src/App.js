@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import CreateAdPage from './pages/CreateAdPage';
 import DashboardPage from './pages/DashboardPage';
+import EditAdPage from './pages/EditAdPage';
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                     <Route path="/forgot-password" element={<ResetPasswordPage />} />
                     <Route path="/create" element={<CreateAdPage />} />
                     <Route path="/dashboard" element={<DashboardPage />} />
+                    <Route path="/update/:adId" element={<EditAdPage />} />
                 </Routes>
             </div>
         </Router>
