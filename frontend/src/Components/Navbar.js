@@ -38,6 +38,9 @@ const Navbar = () => {
                             <Link to="/dashboard" className="mr-4 hover:underline">
                                 Dashboard
                             </Link>
+                            <Link to="/savedAds" className="mr-4 hover:underline">
+                                Saved Ads
+                            </Link>
                             <button onClick={handleLogout} className="mr-4 hover:underline">
                                 Logout
                             </button>

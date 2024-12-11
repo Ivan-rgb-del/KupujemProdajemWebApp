@@ -10,6 +10,7 @@ import ResetPasswordPage from './pages/ResetPasswordPage';
 import CreateAdPage from './pages/CreateAdPage';
 import DashboardPage from './pages/DashboardPage';
 import EditAdPage from './pages/EditAdPage';
+import SavedAdsPage from './pages/SavedAdsPage';
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                     <Route path="/create" element={<CreateAdPage />} />
                     <Route path="/dashboard" element={<DashboardPage />} />
                     <Route path="/update/:adId" element={<EditAdPage />} />
+                    <Route path="/savedAds" element={<SavedAdsPage />} />
                 </Routes>
             </div>
         </Router>

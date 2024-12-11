@@ -1,11 +1,19 @@
 import React from 'react';
 
-export const savedAds = async () => {
+export const savedAds = async (token) => {
     try {
-        const response = await fetch('https://localhost:7084/api/favoriteapi/savedAds');
+        const response = await fetch('https://localhost:7084/api/favoriteapi/savedAds', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        });
+
         if (!response.ok) {
-            throw new Error("Failed to fetch ad!");
+            throw new Error(`Failed to fetch ads: ${response.statusText}`);
         }
+
         return await response.json();
     }
     catch (error) {
