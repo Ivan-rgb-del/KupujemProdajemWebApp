@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { fetchAdvertisements } from '../services/AdvertisementService';
 import { Link } from 'react-router-dom';
+import { addToFavorites } from '../services/AddToFavoritesService';
 
 const AdvertisementPage = () => {
     const [ads, setAds] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -17,6 +20,18 @@ const AdvertisementPage = () => {
 
         fetchData();
     }, []);
+
+    const handleSave = async (adId) => {
+        try {
+            const response = await addToFavorites(adId);
+            if (response) {
+                alert('Ad successfully added to favorites!');
+            }
+        } catch (error) {
+            console.error('Failed to add ad to favorites:', error);
+            alert('Failed to add ad to favorites. Please try again later.');
+        }
+    }
 
     return (
         <div className="bg-gray-100 min-h-screen py-8">
@@ -60,7 +75,9 @@ const AdvertisementPage = () => {
                                 </Link>
 
                                 <div className="mt-4 flex items-center gap-2">
-                                    <button className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition">
+                                    <button
+                                        onClick={() => handleSave(ad.id)}
+                                        className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition">
                                         Add to Favorites
                                     </button>
                                     <button className="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600 transition">
