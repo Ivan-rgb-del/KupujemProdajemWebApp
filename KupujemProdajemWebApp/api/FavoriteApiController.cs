@@ -8,10 +8,12 @@ namespace KupujemProdajemWebApp.api
     public class FavoriteApiController : ControllerBase
     {
         private readonly FavoriteService _favoriteService;
+        private readonly ILogger<FavoriteApiController> _logger;
 
-        public FavoriteApiController(FavoriteService favoriteService)
+        public FavoriteApiController(FavoriteService favoriteService, ILogger<FavoriteApiController> logger)
         {
             _favoriteService = favoriteService;
+            _logger = logger;
         }
 
         [HttpGet("savedAds")]
@@ -19,6 +21,21 @@ namespace KupujemProdajemWebApp.api
         {
             var result = await _favoriteService.GetAllUserSavedAds();
             return Ok(result);
+        }
+
+        [HttpPost("saveAd/{adId}")]
+        public async Task<IActionResult> SaveAd(int adId)
+        {
+            _logger.LogInformation("Received request to save ad with id: {adId}", adId);
+
+            var result = await _favoriteService.SaveAdToFavorite(adId);
+
+            if (!result)
+            {
+                return BadRequest("This ad is already in favorites.");
+            }
+
+            return Ok("Ad has been successfully added to favorites.");
         }
     }
 }

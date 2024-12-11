@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		frontend\src\pages\AdDetailPage.js = frontend\src\pages\AdDetailPage.js
 		frontend\src\services\AdDetailService.js = frontend\src\services\AdDetailService.js
+		frontend\src\services\AddToFavorites.js = frontend\src\services\AddToFavorites.js
 		frontend\src\pages\AdvertisementPage.js = frontend\src\pages\AdvertisementPage.js
 		frontend\src\services\AdvertisementService.js = frontend\src\services\AdvertisementService.js
 		frontend\src\App.js = frontend\src\App.js
