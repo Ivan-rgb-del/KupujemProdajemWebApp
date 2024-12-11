@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { createAd } from "../services/CreateAdService";
+import { useNavigate } from 'react-router-dom';
 
 const CreateAdPage = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         title: "",
         price: "",
@@ -11,24 +13,12 @@ const CreateAdPage = () => {
         imageURL: "",
         createdOn: new Date().toISOString(),
         isActive: true,
-        advertisementCondition: 1,
-        deliveryType: 1,
+        advertisementCondition: "",
+        deliveryType: "",
         advertisementCategoryId: "",
         advertisementGroupId: "",
         address: { city: "", street: "" },
     });
-
-    const advertisementConditionMap = {
-        New: 1,
-        Used: 2,
-        Unused: 3,
-        Damaged: 4
-    };
-
-    const deliveryTypeMap = {
-        Delivery: 1,
-        Pickup: 2,
-    };
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -48,24 +38,21 @@ const CreateAdPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        
             const adData = {
                 ...formData,
                 price: parseFloat(formData.price),
                 advertisementCategoryId: parseInt(formData.advertisementCategoryId, 10),
                 advertisementGroupId: parseInt(formData.advertisementGroupId, 10),
+                advertisementCondition: parseInt(formData.advertisementCondition, 10),
+                deliveryType: parseInt(formData.deliveryType, 10),
                 AppUserId: localStorage.getItem("userId")
             };
 
-            console.log("Sending adData to backend:", adData);
-
         try {
             const response = await createAd(adData);
-            console.log("Ad successfully created:", response);
-            alert("Ad created successfully!");
+            navigate(`/dashboard`);
         } catch (error) {
             console.error("Error creating ad:", error);
-            alert("Failed to create ad.");
         }
     };
 

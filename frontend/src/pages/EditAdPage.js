@@ -16,24 +16,12 @@ const EditAdPage = () => {
         image: "",
         url: "",
         isActive: true,
-        advertisementCondition: 1,
-        deliveryType: 1,
-        advertisementCategoryId: 1,
-        advertisementGroupId: 1,
+        advertisementCondition: "",
+        deliveryType: "",
+        advertisementCategoryId: "",
+        advertisementGroupId: "",
         addressId: { city: "", street: "" },
     });
-
-    const advertisementConditionMap = {
-        New: 1,
-        Used: 2,
-        Unused: 3,
-        Damaged: 4
-    };
-
-    const deliveryTypeMap = {
-        Delivery: 1,
-        Pickup: 2,
-    };
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -67,8 +55,18 @@ const EditAdPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const data = {
+            ...adData,
+            price: parseFloat(adData.price),
+            advertisementCategoryId: parseInt(adData.advertisementCategoryId, 10),
+            advertisementGroupId: parseInt(adData.advertisementGroupId, 10),
+            advertisementCondition: parseInt(adData.advertisementCondition, 10),
+            deliveryType: parseInt(adData.deliveryType, 10),
+        };
+
         try {
-            const data = await editAd(adData, adId);
+            const response = await editAd(data, adId);
             navigate(`/dashboard`);
         } catch (error) {
             setError("Failed to update ad. Please try again.");
