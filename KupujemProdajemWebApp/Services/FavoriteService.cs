@@ -15,15 +15,19 @@ namespace KupujemProdajemWebApp.Services
             _contextAccessor = contextAccessor;
         }
 
-        public async Task<SavedAdsViewModel> GetAllUserSavedAds()
+        public async Task<List<SavedAdsViewModel>> GetAllUserSavedAds()
         {
-            var userId =  _contextAccessor.HttpContext.User.GetUserId();
+            var userId = _contextAccessor.HttpContext.User.GetUserId();
             var userFavoriteAds = await _favoriteRepository.GetAllFavoritesByUserId(userId);
 
-            return new SavedAdsViewModel
+            return userFavoriteAds.Select(f => new SavedAdsViewModel
             {
-                FavoriteAds = userFavoriteAds
-            };
+                AdvertisementId = f.Advertisement.Id,
+                Title = f.Advertisement.Title,
+                Price = f.Advertisement.Price,
+                Description = f.Advertisement.Description,
+                ImageUrl = f.Advertisement.ImageURL
+            }).ToList();
         }
 
         public async Task<bool> SaveAdToFavorite(int adId)
