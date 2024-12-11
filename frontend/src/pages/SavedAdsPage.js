@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { savedAds } from '../services/SavedAdsService';
+import { Link } from 'react-router-dom';
 
 const SavedAdsPage = () => {
     const [ads, setAds] = useState([]);
@@ -55,9 +56,14 @@ const SavedAdsPage = () => {
                                 </p>
 
                                 <div className="mt-4 flex items-center gap-2">
-                                    <button className="bg-red-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600 transition">
+                                    <button className="bg-red-500 text-white px-3 py-1 rounded-lg text-sm">
                                         Remove
                                     </button>
+                                    <Link
+                                        to={`/advertisements/${ad.advertisementId}`}
+                                        className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm">
+                                        More
+                                    </Link>
                                 </div>
                             </div>
                         </div>
