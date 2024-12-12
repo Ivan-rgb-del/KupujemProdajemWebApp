@@ -27,6 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		frontend\package.json = frontend\package.json
 		frontend\src\pages\RegisterPage.js = frontend\src\pages\RegisterPage.js
 		frontend\src\services\RegisterService.js = frontend\src\services\RegisterService.js
+		frontend\src\services\RemoveFromFavoriteService.js = frontend\src\services\RemoveFromFavoriteService.js
 		frontend\src\pages\ResetPasswordPage.js = frontend\src\pages\ResetPasswordPage.js
 		frontend\src\services\ResetPasswordService.js = frontend\src\services\ResetPasswordService.js
 		frontend\src\pages\SavedAdsPage.js = frontend\src\pages\SavedAdsPage.js

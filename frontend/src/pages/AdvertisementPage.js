@@ -79,9 +79,6 @@ const AdvertisementPage = () => {
                                         className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition">
                                         Add to Favorites
                                     </button>
-                                    <button className="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600 transition">
-                                        Contact Seller
-                                    </button>
                                 </div>
                             </div>
                         </div>

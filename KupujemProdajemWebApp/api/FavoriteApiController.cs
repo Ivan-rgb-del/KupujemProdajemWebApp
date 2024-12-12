@@ -26,8 +26,6 @@ namespace KupujemProdajemWebApp.api
         [HttpPost("saveAd/{adId}")]
         public async Task<IActionResult> SaveAd(int adId)
         {
-            _logger.LogInformation("Received request to save ad with id: {adId}", adId);
-
             var result = await _favoriteService.SaveAdToFavorite(adId);
 
             if (!result)
@@ -36,6 +34,19 @@ namespace KupujemProdajemWebApp.api
             }
 
             return Ok("Ad has been successfully added to favorites.");
+        }
+
+        [HttpDelete("remove/{adId}")]
+        public async Task<IActionResult> RemoveFromFavorites(int adId)
+        {
+            var result = await _favoriteService.RemovedSavedAd(adId);
+
+            if (!result)
+            {
+                return BadRequest("This ad does not exist!");
+            }
+
+            return Ok("Successfully deleted ad!");
         }
     }
 }
