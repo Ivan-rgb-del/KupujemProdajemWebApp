@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { savedAds } from '../services/SavedAdsService';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { removeSavedAd } from '../services/RemoveFromFavoriteService';
 
 const SavedAdsPage = () => {
     const [ads, setAds] = useState([]);
@@ -8,6 +9,8 @@ const SavedAdsPage = () => {
     const [error, setError] = useState(null);
 
     const token = localStorage.getItem("token");
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchSavedAds = async () => {
@@ -23,6 +26,16 @@ const SavedAdsPage = () => {
 
         fetchSavedAds();
     }, [token]);
+
+    const handleRemove = async (adId) => {
+        try {
+            const response = await removeSavedAd(adId);
+            setAds((prevAds) => prevAds.filter((ad) => ad.id !== adId));
+            navigate("/advertisements");
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
 
     if (loading) return <p>Loading saved ads...</p>;
     if (error) return <p>Error: {error}</p>;
@@ -56,7 +69,9 @@ const SavedAdsPage = () => {
                                 </p>
 
                                 <div className="mt-4 flex items-center gap-2">
-                                    <button className="bg-red-500 text-white px-3 py-1 rounded-lg text-sm">
+                                    <button
+                                        onClick={() => handleRemove(ad.advertisementId)}
+                                        className="bg-red-500 text-white px-3 py-1 rounded-lg text-sm">
                                         Remove
                                     </button>
                                     <Link

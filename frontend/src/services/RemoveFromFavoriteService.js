@@ -1,4 +1,4 @@
-export const remove = async (adId) => {
+export const removeSavedAd = async (adId) => {
     try {
         const token = localStorage.getItem("token");
         if (!token) {
