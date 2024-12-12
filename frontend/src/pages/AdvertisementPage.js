@@ -25,11 +25,10 @@ const AdvertisementPage = () => {
         try {
             const response = await addToFavorites(adId);
             if (response) {
-                alert('Ad successfully added to favorites!');
+                navigate("/savedAds");
             }
         } catch (error) {
             console.error('Failed to add ad to favorites:', error);
-            alert('Failed to add ad to favorites. Please try again later.');
         }
     }
 

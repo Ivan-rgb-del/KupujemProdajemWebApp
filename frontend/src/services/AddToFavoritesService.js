@@ -18,7 +18,7 @@ export const addToFavorites = async (adId) => {
             throw new Error(error);
         }
 
-        const data = await response.json();
+        const data = await response.text();
         return data;
     } catch (error) {
         console.error("Failed to add to favorites:", error.message);
