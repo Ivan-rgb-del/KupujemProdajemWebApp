@@ -75,5 +75,17 @@ namespace KupujemProdajemWebApp.api
             var ads = await _advertisementService.FilterAds(city, categoryId, groupId, IsFixedPrice, IsReplacement, minPrice, maxPrice);
             return Ok(ads);
         }
+
+        [HttpGet("categories")]
+        public IEnumerable<AdvertisementCategory> GetCategories()
+        {
+            return _advertisementService.GetCategories();
+        }
+
+        [HttpGet("groups")]
+        public IEnumerable<AdvertisementGroup> GetGroups()
+        {
+            return _advertisementService.GetGroups();
+        }
     }
 }
