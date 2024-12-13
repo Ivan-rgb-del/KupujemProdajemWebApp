@@ -68,5 +68,12 @@ namespace KupujemProdajemWebApp.api
             var result = await _advertisementService.EditAdvertisement(adId, editAdVM);
             return Ok(result);
         }
+
+        [HttpGet("ad/city={city}/categoryId={categoryId}/groupId={groupId}/IsFixedPrice={IsFixedPrice}/IsReplacement={IsReplacement}/minPrice={minPrice}/maxPrice={maxPrice}")]
+        public async Task<IActionResult> FilterAds(string city, int categoryId, int groupId, bool IsFixedPrice, bool IsReplacement, double minPrice, double maxPrice)
+        {
+            var ads = await _advertisementService.FilterAds(city, categoryId, groupId, IsFixedPrice, IsReplacement, minPrice, maxPrice);
+            return Ok(ads);
+        }
     }
 }
