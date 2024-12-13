@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { fetchAdvertisements } from '../services/AdvertisementService';
 import { Link } from 'react-router-dom';
 import { addToFavorites } from '../services/AddToFavoritesService';
+import FilterAds from './FilterAds';
+import { fetchAdDetail } from '../services/FilterAdsService';
 
 const AdvertisementPage = () => {
     const [ads, setAds] = useState([]);
@@ -21,6 +23,23 @@ const AdvertisementPage = () => {
         fetchData();
     }, []);
 
+    const handleFilter = async (filters) => {
+        try {
+            const filteredAds = await fetchAdDetail(
+                filters.city,
+                parseInt(filters.categoryId, 10) || 0,
+                parseInt(filters.groupId, 10) || 0,
+                filters.IsFixedPrice,
+                filters.IsReplacement,
+                parseFloat(filters.minPrice) || 0,
+                parseFloat(filters.maxPrice) || 0
+            );
+            setAds(filteredAds);
+        } catch (error) {
+            console.error("Failed to fetch filtered ads: ", error);
+        }
+    };
+
     const handleSave = async (adId) => {
         try {
             const response = await addToFavorites(adId);
@@ -38,6 +57,9 @@ const AdvertisementPage = () => {
                 <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
                     Advertisements
                 </h1>
+
+                <FilterAds onFilter={handleFilter} />
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {ads.map((ad) => (
                         <div
