@@ -6,7 +6,7 @@ import { getAllGroups } from "../services/GetAllGroupsService";
 
 const CreateAdPage = () => {
     const navigate = useNavigate();
-    const[categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [groups, setGroups] = useState([]);
 
     const [formData, setFormData] = useState({

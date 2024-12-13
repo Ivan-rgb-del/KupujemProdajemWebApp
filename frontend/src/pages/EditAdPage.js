@@ -2,9 +2,13 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchAdDetail } from "../services/AdDetailService";
 import { editAd } from "../services/EditAdService ";
+import { getAllCategories } from "../services/GetAllCategoriesService";
+import { getAllGroups } from "../services/GetAllGroupsService";
 
 const EditAdPage = () => {
     const { adId } = useParams();
+    const [categories, setCategories] = useState([]);
+    const [groups, setGroups] = useState([]);
     const navigate = useNavigate();
 
     const [adData, setAdData] = useState({
@@ -72,6 +76,22 @@ const EditAdPage = () => {
             setError("Failed to update ad. Please try again.");
         }
     };
+
+    useEffect(() => {
+        const fetchCategoriesAndGroups = async () => {
+            try {
+                const categoriesData = await getAllCategories();
+                setCategories(categoriesData);
+
+                const groupsData = await getAllGroups();
+                setGroups(groupsData);
+            } catch (error) {
+                console.error("Failed to fetch categories and groups", error);
+            }
+        }
+
+        fetchCategoriesAndGroups();
+    }, [])
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;
@@ -154,28 +174,38 @@ const EditAdPage = () => {
                         onChange={handleChange}
                     >
                         <option value={1}>Delivery</option>
-                        <option value={2}>Pickup</option>
+                        <option value={2}>Personal Pickup</option>
                     </select>
                 </div>
                 <div>
-                    <label>Category ID:</label>
-                    <input
-                        type="number"
+                    <label>Category:</label>
+                    <select
                         name="advertisementCategoryId"
                         value={adData.advertisementCategoryId}
                         onChange={handleChange}
-                        required
-                    />
+                    >
+                        <option value="" disabled>Select a category</option>
+                        {categories.map((category) => (
+                            <option key={category.id} value={category.id}>
+                                {category.name}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div>
-                    <label>Group ID:</label>
-                    <input
-                        type="number"
+                    <label>Group:</label>
+                    <select
                         name="advertisementGroupId"
                         value={adData.advertisementGroupId}
                         onChange={handleChange}
-                        required
-                    />
+                    >
+                        <option value="" disabled>Select a group</option>
+                        {groups.map((group) => (
+                            <option key={group.id} value={group.id}>
+                                {group.name}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div>
                     <label>City:</label>
