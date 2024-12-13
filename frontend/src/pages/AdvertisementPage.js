@@ -10,6 +10,8 @@ const AdvertisementPage = () => {
     const [ads, setAds] = useState([]);
     const navigate = useNavigate();
 
+    const token = localStorage.getItem("token");
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -95,13 +97,16 @@ const AdvertisementPage = () => {
                                     More
                                 </Link>
 
-                                <div className="mt-4 flex items-center gap-2">
-                                    <button
-                                        onClick={() => handleSave(ad.id)}
-                                        className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition">
-                                        Add to Favorites
-                                    </button>
-                                </div>
+                                {token && (
+                                    <div className="mt-4 flex items-center gap-2">
+                                        <button
+                                            onClick={() => handleSave(ad.id)}
+                                            className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition">
+                                            Add to Favorites
+                                        </button>
+                                    </div>
+                                )}
+
                             </div>
                         </div>
                     ))}
