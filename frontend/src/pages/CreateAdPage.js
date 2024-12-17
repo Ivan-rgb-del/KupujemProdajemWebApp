@@ -46,10 +46,10 @@ const CreateAdPage = () => {
             const adData = {
                 ...formData,
                 price: parseFloat(formData.price),
-                advertisementCategoryId: parseInt(formData.advertisementCategoryId, 10),
-                advertisementGroupId: parseInt(formData.advertisementGroupId, 10),
-                advertisementCondition: parseInt(formData.advertisementCondition, 10),
-                deliveryType: parseInt(formData.deliveryType, 10),
+                advertisementCategoryId: +formData.advertisementCategoryId,
+                advertisementGroupId: +formData.advertisementGroupId,
+                advertisementCondition: +formData.advertisementCondition,
+                deliveryType: +formData.deliveryType,
                 AppUserId: localStorage.getItem("userId")
         };
 

@@ -63,10 +63,10 @@ const EditAdPage = () => {
         const data = {
             ...adData,
             price: parseFloat(adData.price),
-            advertisementCategoryId: parseInt(adData.advertisementCategoryId, 10),
-            advertisementGroupId: parseInt(adData.advertisementGroupId, 10),
-            advertisementCondition: parseInt(adData.advertisementCondition, 10),
-            deliveryType: parseInt(adData.deliveryType, 10),
+            advertisementCategoryId: +adData.advertisementCategoryId,
+            advertisementGroupId: +adData.advertisementGroupId,
+            advertisementCondition: +adData.advertisementCondition,
+            deliveryType: +adData.deliveryType,
         };
 
         try {

@@ -10,7 +10,6 @@ export const createAd = async (adData) => {
         });
 
         console.log("API response status:", response.status);
-        console.log("API response body:", await response.text());
 
         if (!response.ok) {
             let errorData;
