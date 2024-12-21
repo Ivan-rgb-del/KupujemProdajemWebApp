@@ -14,9 +14,6 @@ namespace KupujemProdajemWebApp.Services
             _dashboardRepository = dashboardRepository;
         }
 
-        public async Task<List<Advertisement>> GetAllCreatedUserAds(string userId)
-        {
-            return await _dashboardRepository.GetAllUserAds(userId);
-        }
+        public Task<List<Advertisement>> GetAllCreatedUserAds(string userId) => _dashboardRepository.GetAllUserAds(userId);
     }
 }

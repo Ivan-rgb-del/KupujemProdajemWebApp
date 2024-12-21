@@ -19,10 +19,8 @@ namespace KupujemProdajemWebApp.Services
             _contextAccessor = contextAccessor;
         }
 
-        public async Task<IEnumerable<Advertisement>> GetAllAdvertisements()
-        {
-            return await _advertisementRepository.GetAll();
-        }
+        public Task<IEnumerable<Advertisement>> GetAllAdvertisements() =>
+            _advertisementRepository.GetAll();
 
         public async Task<Advertisement> GetAdById(int id)
         {
@@ -30,15 +28,11 @@ namespace KupujemProdajemWebApp.Services
             return await _advertisementRepository.GetByIdAsync(id);
         }
 
-        public IEnumerable<AdvertisementCategory> GetCategories()
-        {
-            return _advertisementRepository.GetCategories();
-        }
+        public IEnumerable<AdvertisementCategory> GetCategories() =>
+            _advertisementRepository.GetCategories();
 
-        public IEnumerable<AdvertisementGroup> GetGroups()
-        {
-            return _advertisementRepository.GetGroups();
-        }
+        public IEnumerable<AdvertisementGroup> GetGroups() => 
+            _advertisementRepository.GetGroups();
 
         public async Task<Advertisement> CreateNewAdvertisement(CreateAdViewModel advertisementVM)
         {
@@ -145,9 +139,7 @@ namespace KupujemProdajemWebApp.Services
             }
         }
 
-        public async Task<IEnumerable<Advertisement>> FilterAds(string? city, int? categoryId, int? groupId, bool IsFixedPrice, bool IsReplacement, double minPrice, double maxPrice)
-        {
-            return await _advertisementRepository.FilterAds(city, categoryId, groupId, IsFixedPrice, IsReplacement, minPrice, maxPrice);
-        }
+        public Task<IEnumerable<Advertisement>> FilterAds(string? city, int? categoryId, int? groupId, bool IsFixedPrice, bool IsReplacement, double minPrice, double maxPrice) => 
+            _advertisementRepository.FilterAds(city, categoryId, groupId, IsFixedPrice, IsReplacement, minPrice, maxPrice);
     }
 }
