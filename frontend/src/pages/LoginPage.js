@@ -1,11 +1,13 @@
 ﻿import React, { useState } from 'react';
 import { loginUser } from '../services/LoginService';
 import { useNavigate, Link } from 'react-router-dom';
+import WelcomeMessage from '../Components/WelcomeMessage';
 
 const LoginPage = () => {
     const [emailAddress, setEmailAddress] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [token, setToken] = useState(null);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -16,6 +18,9 @@ const LoginPage = () => {
             localStorage.setItem("token", response.token);
             localStorage.setItem("email", response.email);
             localStorage.setItem("userId", response.userId);
+
+            setToken(response.token);
+
             navigate('/advertisements');
         } catch (error) {
             setError(error.message);
@@ -65,6 +70,8 @@ const LoginPage = () => {
                     </button>
                 </form>
             </div>
+
+            <WelcomeMessage token={token} />
         </div>
     );
 };

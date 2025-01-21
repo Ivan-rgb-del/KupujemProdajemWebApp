@@ -1,3 +1,4 @@
+using KupujemProdajemWebApp;
 using KupujemProdajemWebApp.Data;
 using KupujemProdajemWebApp.Helpers;
 using KupujemProdajemWebApp.Interfaces;
@@ -50,6 +51,20 @@ builder.Services.AddAuthentication(options =>
             System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"])
         )
     };
+
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            var accessToken = context.Request.Query["access_token"];
+            if (!string.IsNullOrEmpty(accessToken) &&
+                context.HttpContext.Request.Path.StartsWithSegments("/notificationHub"))
+            {
+                context.Token = accessToken;
+            }
+            return Task.CompletedTask;
+        }
+    };
 });
 
 //builder.Services.ConfigureApplicationCookie(options =>
@@ -71,6 +86,7 @@ builder.Services.AddAuthentication(options =>
 //        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
 //    });
 
+builder.Services.AddSignalR();
 builder.Services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 builder.Services.AddScoped<IPhotoService, PhotoService>();
@@ -86,9 +102,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins", builder =>
     {
-        builder.AllowAnyOrigin()
+        builder.WithOrigins("http://localhost:3000")
                .AllowAnyMethod()
-               .AllowAnyHeader();
+               .AllowAnyHeader()
+               .AllowCredentials();
     });
 });
 
@@ -108,5 +125,6 @@ app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.MapHub<NotificationHub>("/notificationHub");
 app.MapControllers();
 app.Run();
