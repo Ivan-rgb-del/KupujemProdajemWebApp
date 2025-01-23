@@ -6,7 +6,7 @@ namespace KupujemProdajemWebApp
     {
         public async Task SendWelcomeMessage(string username)
         {
-            await Clients.Caller.SendAsync("ReceiveMessage", $"{username} Welcome");
+            await Clients.Caller.SendAsync("ReceiveMessage", $"{username}");
         }
     }
 }
