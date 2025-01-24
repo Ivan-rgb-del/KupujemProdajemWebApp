@@ -52,5 +52,10 @@ namespace KupujemProdajemWebApp.Repository
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<string> GetAdOwnerId(int adId)
+        {
+            return await _context.Advertisements.Where(a => a.Id == adId).Select(a => a.UserId).FirstOrDefaultAsync();
+        }
     }
 }

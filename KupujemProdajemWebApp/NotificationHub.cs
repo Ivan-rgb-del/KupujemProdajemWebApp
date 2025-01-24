@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using System.Reflection;
 
 namespace KupujemProdajemWebApp
 {
@@ -7,6 +8,11 @@ namespace KupujemProdajemWebApp
         public async Task SendWelcomeMessage(string username)
         {
             await Clients.Caller.SendAsync("ReceiveMessage", $"{username}");
+        }
+
+        public async Task SavedAdNotification(string ownerId, string message)
+        {
+            await Clients.User(ownerId).SendAsync("ReceiveNotification", message);
         }
     }
 }
