@@ -1,6 +1,4 @@
-﻿using KupujemProdajemWebApp.Data;
-using KupujemProdajemWebApp.Interfaces;
-using KupujemProdajemWebApp.Models;
+﻿using KupujemProdajemWebApp.Models;
 using KupujemProdajemWebApp.ViewModels;
 using Microsoft.AspNetCore.Identity;
 

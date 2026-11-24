@@ -1,21 +1,17 @@
 ﻿using KupujemProdajemWebApp.Interfaces;
 using KupujemProdajemWebApp.Models;
 using KupujemProdajemWebApp.ViewModels;
-using Microsoft.AspNetCore.Mvc;
-using System.Text.RegularExpressions;
 
 namespace KupujemProdajemWebApp.Services
 {
     public class AdvertisementService
     {
         private readonly IAdvertisementRepository _advertisementRepository;
-        private readonly IPhotoService _photoService;
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public AdvertisementService(IAdvertisementRepository advertisementRepository, IPhotoService photoService, IHttpContextAccessor contextAccessor)
+        public AdvertisementService(IAdvertisementRepository advertisementRepository, IHttpContextAccessor contextAccessor)
         {
             _advertisementRepository = advertisementRepository;
-            _photoService = photoService;
             _contextAccessor = contextAccessor;
         }
 
@@ -31,12 +27,11 @@ namespace KupujemProdajemWebApp.Services
         public IEnumerable<AdvertisementCategory> GetCategories() =>
             _advertisementRepository.GetCategories();
 
-        public IEnumerable<AdvertisementGroup> GetGroups() => 
+        public IEnumerable<AdvertisementGroup> GetGroups() =>
             _advertisementRepository.GetGroups();
 
         public async Task<Advertisement> CreateNewAdvertisement(CreateAdViewModel advertisementVM)
         {
-            //var result = await _photoService.AddPhotoAsync(advertisementVM.ImageURL);
             var advertisement = new Advertisement
             {
                 Title = advertisementVM.Title,
@@ -50,7 +45,7 @@ namespace KupujemProdajemWebApp.Services
                 DeliveryType = advertisementVM.DeliveryType,
                 AdvertisementCategoryId = advertisementVM.AdvertisementCategoryId,
                 AdvertisementGroupId = advertisementVM.AdvertisementGroupId,
-                UserId = advertisementVM.AppUserId,
+                UserId = _contextAccessor.HttpContext.User.GetUserId(),
                 Address = new Address
                 {
                     City = advertisementVM.Address.City,
@@ -99,12 +94,12 @@ namespace KupujemProdajemWebApp.Services
                 throw new Exception("Advertisement not found.");
             }
 
-            if (!string.IsNullOrEmpty(ad.ImageURL))
+            var currentUserId = _contextAccessor.HttpContext.User.GetUserId();
+            if (ad.UserId != currentUserId)
             {
-                await _photoService.DeletePhotoAsync(ad.ImageURL);
+                throw new UnauthorizedAccessException();
             }
 
-            //var photoResult = await _photoService.AddPhotoAsync(advertisementVM.Image);
             var advertisement = new Advertisement
             {
                 Id = id,
@@ -122,7 +117,7 @@ namespace KupujemProdajemWebApp.Services
                 AdvertisementGroupId = advertisementVM.AdvertisementGroupId,
                 AddressId = advertisementVM.AddressId,
                 Address = advertisementVM.Address,
-                UserId = advertisementVM.AppUserId,
+                UserId = ad.UserId,
             };
 
             _advertisementRepository.Update(advertisement);
@@ -133,13 +128,18 @@ namespace KupujemProdajemWebApp.Services
         {
             var ad = await _advertisementRepository.GetByIdAsyncNoTracking(id);
 
-            if (ad != null)
+            if (ad == null) return;
+
+            var currentUserId = _contextAccessor.HttpContext.User.GetUserId();
+            if (ad.UserId != currentUserId)
             {
-                _advertisementRepository.Delete(ad);
+                throw new UnauthorizedAccessException();
             }
+
+            _advertisementRepository.Delete(ad);
         }
 
-        public Task<IEnumerable<Advertisement>> FilterAds(string? city, int? categoryId, int? groupId, bool IsFixedPrice, bool IsReplacement, double minPrice, double maxPrice) => 
+        public Task<IEnumerable<Advertisement>> FilterAds(string? city, int? categoryId, int? groupId, bool IsFixedPrice, bool IsReplacement, double minPrice, double maxPrice) =>
             _advertisementRepository.FilterAds(city, categoryId, groupId, IsFixedPrice, IsReplacement, minPrice, maxPrice);
     }
 }

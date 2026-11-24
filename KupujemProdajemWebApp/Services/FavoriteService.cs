@@ -11,11 +11,11 @@ namespace KupujemProdajemWebApp.Services
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IHubContext<NotificationHub> _notificationHubContext;
 
-        public FavoriteService(IFavoriteRepository favoriteRepository, IHttpContextAccessor contextAccessor, IHubContext<NotificationHub> _notificationHubContext)
+        public FavoriteService(IFavoriteRepository favoriteRepository, IHttpContextAccessor contextAccessor, IHubContext<NotificationHub> notificationHubContext)
         {
             _favoriteRepository = favoriteRepository;
             _contextAccessor = contextAccessor;
-            _notificationHubContext = _notificationHubContext;
+            _notificationHubContext = notificationHubContext;
         }
 
         public async Task<List<SavedAdsViewModel>> GetAllUserSavedAds()

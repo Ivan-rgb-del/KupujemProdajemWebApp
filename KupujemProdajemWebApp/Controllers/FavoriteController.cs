@@ -1,10 +1,5 @@
-﻿using KupujemProdajemWebApp.Interfaces;
-using KupujemProdajemWebApp.Models;
-using KupujemProdajemWebApp.Repository;
-using KupujemProdajemWebApp.Services;
-using KupujemProdajemWebApp.ViewModels;
+﻿using KupujemProdajemWebApp.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.WebSockets;
 
 namespace KupujemProdajemWebApp.Controllers
 {
@@ -26,7 +21,8 @@ namespace KupujemProdajemWebApp.Controllers
             {
                 TempData["Message"] = "Ad is already in favorites.";
                 return RedirectToAction("Index", "Advertisement");
-            } else
+            }
+            else
             {
                 TempData["Message"] = "Ad saved to favorites!";
                 return RedirectToAction("Index", "Favorite");

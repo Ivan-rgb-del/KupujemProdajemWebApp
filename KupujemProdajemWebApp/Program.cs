@@ -1,11 +1,9 @@
 using KupujemProdajemWebApp;
 using KupujemProdajemWebApp.Data;
-using KupujemProdajemWebApp.Helpers;
 using KupujemProdajemWebApp.Interfaces;
 using KupujemProdajemWebApp.Models;
 using KupujemProdajemWebApp.Repository;
 using KupujemProdajemWebApp.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -88,8 +86,6 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddSignalR();
 builder.Services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
-builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
-builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();

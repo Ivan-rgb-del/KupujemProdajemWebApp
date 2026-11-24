@@ -1,6 +1,7 @@
 ﻿using KupujemProdajemWebApp.Models;
 using KupujemProdajemWebApp.Services;
 using KupujemProdajemWebApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KupujemProdajemWebApp.api
@@ -38,6 +39,7 @@ namespace KupujemProdajemWebApp.api
             return Ok(ad);
         }
 
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateAdViewModel createAdVM)
         {
@@ -51,12 +53,22 @@ namespace KupujemProdajemWebApp.api
             return Ok(result);
         }
 
+        [Authorize]
         [HttpDelete("delete={adId}")]
-        public async Task Delete(int adId)
+        public async Task<IActionResult> Delete(int adId)
         {
-            await _advertisementService.DeleteAdvertisement(adId);
+            try
+            {
+                await _advertisementService.DeleteAdvertisement(adId);
+                return NoContent();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Forbid();
+            }
         }
 
+        [Authorize]
         [HttpPut("update/{adId}")]
         public async Task<IActionResult> Edit([FromBody] EditAdViewModel editAdVM, int adId)
         {
@@ -65,8 +77,15 @@ namespace KupujemProdajemWebApp.api
                 return BadRequest(new { message = "Validation errors", errors = ModelState });
             }
 
-            var result = await _advertisementService.EditAdvertisement(adId, editAdVM);
-            return Ok(result);
+            try
+            {
+                var result = await _advertisementService.EditAdvertisement(adId, editAdVM);
+                return Ok(result);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Forbid();
+            }
         }
 
         [HttpGet("ad/city={city}/categoryId={categoryId}/groupId={groupId}/IsFixedPrice={IsFixedPrice}/IsReplacement={IsReplacement}/minPrice={minPrice}/maxPrice={maxPrice}")]

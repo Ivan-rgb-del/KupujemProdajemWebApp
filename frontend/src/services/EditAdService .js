@@ -2,10 +2,13 @@ import React from 'react';
 
 export const editAd = async (adData, adId) => {
     try {
+        const token = localStorage.getItem("token");
+
         const response = await fetch(`https://localhost:7084/api/advertisementapi/update/${adId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
             },
             body: JSON.stringify(adData),
         });

@@ -1,10 +1,10 @@
-﻿using KupujemProdajemWebApp.Models;
-using KupujemProdajemWebApp.Services;
+﻿using KupujemProdajemWebApp.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace KupujemProdajemWebApp.api
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class DashboardApiController : ControllerBase

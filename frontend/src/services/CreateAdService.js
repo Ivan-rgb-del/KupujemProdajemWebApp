@@ -1,10 +1,13 @@
 import React from 'react';
 
 export const createAd = async (adData) => {
+        const token = localStorage.getItem("token");
+
         const response = await fetch('https://localhost:7084/api/advertisementapi/create', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
             },
             body: JSON.stringify(adData)
         });

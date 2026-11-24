@@ -2,8 +2,13 @@ import React from 'react';
 
 export const deleteAd = async (adId) => {
     try {
+        const token = localStorage.getItem("token");
+
         const response = await fetch(`https://localhost:7084/api/advertisementapi/delete=${adId}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
         });
 
         if (!response.ok) {

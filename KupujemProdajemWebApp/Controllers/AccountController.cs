@@ -1,11 +1,6 @@
-﻿using KupujemProdajemWebApp.Data;
-using KupujemProdajemWebApp.Interfaces;
-using KupujemProdajemWebApp.Models;
-using KupujemProdajemWebApp.Services;
+﻿using KupujemProdajemWebApp.Services;
 using KupujemProdajemWebApp.ViewModels;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace KupujemProdajemWebApp.Controllers
 {

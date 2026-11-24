@@ -1,5 +1,6 @@
 ﻿import React from 'react';
 import WelcomeMessage from '../Components/WelcomeMessage';
+import Notifications from '../services/Notification';
 
 const WelcomePage = () => {
     return (
@@ -12,6 +13,8 @@ const WelcomePage = () => {
             <p className="mt-4 text-lg text-gray-700">
                 Find ads or post your own quickly and easily.
             </p>
+
+            <Notifications />
         </div>
     );
 };
